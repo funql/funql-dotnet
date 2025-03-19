@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- Package configuration -->
+    <PropertyGroup>
+        <Description>Provides core FunQL functionality, including parsing, validating, and executing requests.</Description>
+        <PackageTags>FunQL api json rest</PackageTags>
+    </PropertyGroup>
+    
+</Project>

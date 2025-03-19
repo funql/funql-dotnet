@@ -1,0 +1,39 @@
+<Project>
+    <!-- Build options -->
+    <PropertyGroup>
+        <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <!-- Version -->
+    <PropertyGroup>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix></VersionSuffix>
+    </PropertyGroup>
+
+    <!-- Package configuration -->
+    <PropertyGroup>
+        <Authors>Xtracked</Authors>
+        <Copyright>Copyright 2025 Xtracked</Copyright>
+        <PackageProjectUrl>https://dotnet.funql.io</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)/LICENSE" Pack="true" PackagePath="/" Visible="false"/>
+        <None Include="$(MSBuildThisFileDirectory)/assets/icon.png" Pack="true" PackagePath="/icon.png" Visible="false"/>
+        <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="/README.md" Visible="false"/>
+    </ItemGroup>
+
+    <!-- 
+    Use https://github.com/dotnet/reproducible-builds so certain properties are automatically set (like 
+    https://github.com/dotnet/sourcelink) for packages
+    -->
+    <ItemGroup>
+        <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All"/>
+    </ItemGroup>
+</Project>

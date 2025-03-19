@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: release
+on:
+  push:
+    tags:
+      # Run on release version tags (e.g. 1.0.0)
+      - "[0-9]+.[0-9]+.[0-9]+"
+      # Run on alpha version tags (e.g. 1.0.0-alpha01)
+      - "[0-9]+.[0-9]+.[0-9]+-alpha[0-9][0-9]"
+      # Run on beta version tags (e.g. 1.0.0-beta01)
+      - "[0-9]+.[0-9]+.[0-9]+-beta[0-9][0-9]"
+      # Run on rc version tags (e.g. 1.0.0-rc01)
+      - "[0-9]+.[0-9]+.[0-9]+-rc[0-9][0-9]"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET (global.json)
+        uses: actions/setup-dotnet@v4
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build -c Release --no-restore
+      - name: Test
+        run: dotnet test -c Release --no-build --verbosity normal
+      - name: Pack
+        run: dotnet pack -c Release --no-build --output out
+      - name: Push
+        # Using --skip-duplicate to prevent errors if a package with the same version already exists: if you retry a 
+        # failed workflow, already published packages will be skipped without error
+        run: dotnet nuget push out/*.nupkg --api-key ${{ secrets.NUGET_APIKEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

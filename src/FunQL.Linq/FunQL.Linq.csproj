@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- Package configuration -->
+    <PropertyGroup>
+        <Description>Translates FunQL queries into LINQ expressions.</Description>
+        <PackageTags>FunQL api json rest linq</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FunQL.Core\FunQL.Core.csproj"/>
+    </ItemGroup>
+
+</Project>

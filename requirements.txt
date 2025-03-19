@@ -1,0 +1,10 @@
+# Requirements for core
+mkdocs~=1.6.1
+mkdocs-material~=9.6.9
+
+# Requirements for plugins
+mkdocs-git-committers-plugin-2~=2.5.0
+mkdocs-git-revision-date-localized-plugin~=1.4.5
+
+# FunQL Lexer
+funql-lexers @ git+https://github.com/funql/funql-docs.git#subdirectory=src/funql-lexers

@@ -1,0 +1,15 @@
+# editorconfig.org
+root = true
+
+[*.cs]
+file_header_template = Copyright 2025 Xtracked\nSPDX-License-Identifier: GPL-2.0-only OR Commercial
+
+# We want explicit 'private readonly' fields and only use primary constructor for initialization
+resharper_replace_with_primary_constructor_parameter_highlighting = none
+
+# Wrap class/method closing ')' to next line if multiline
+csharp_wrap_before_declaration_rpar = true
+csharp_wrap_before_primary_constructor_declaration_rpar = true
+
+# Align e.g. '?? throw new Exception()' with normal indentation
+csharp_align_multiline_binary_expressions_chain = false

@@ -1,0 +1,114 @@
+# Project information
+site_name: FunQL .NET
+site_description: API Query Library
+site_author: Xtracked
+site_url: https://dotnet.funql.io/
+
+# Repository
+repo_url: https://github.com/funql/funql-dotnet
+edit_uri: blob/main/docs/
+
+# Copyright
+copyright: >-
+  Copyright &copy; 2025 Xtracked |
+  <a href="https://www.xtracked.com/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>
+
+# Configuration
+theme:
+  name: material
+  language: en
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: indigo
+      accent: indigo
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: indigo
+      accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - toc.follow
+  font:
+    text: Roboto
+    code: JetBrains Mono
+  logo: assets/icon.png
+  favicon: assets/favicon.png
+
+# Plugins
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-committers:
+      repository: funql/funql-dotnet
+      branch: main
+
+# Additional configuration
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/funql
+
+# Additional CSS
+extra_css:
+  - stylesheets/extra.css
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: docs
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+# Page tree
+nav:
+  - Home:
+      - index.md
+      - Design philosophy: design-philosophy.md
+      - Licensing: licensing.md
+  - Learn:
+      - Getting started: learn/getting-started.md
+  - Specification: https://funql.io/

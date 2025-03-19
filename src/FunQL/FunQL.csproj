@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <!-- Ensure there's no unnecessary output as this is a meta-package -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IncludeSymbols>false</IncludeSymbols>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <!-- NU5128 happens because there's no build output, but we can ignore it as we explicitly don't include it -->
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+    </PropertyGroup>
+
+    <!-- Package configuration -->
+    <PropertyGroup>
+        <Description>FunQL for .NET.</Description>
+        <PackageTags>FunQL api json rest linq</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FunQL.Core\FunQL.Core.csproj"/>
+        <ProjectReference Include="..\FunQL.Linq\FunQL.Linq.csproj"/>
+    </ItemGroup>
+
+</Project>
