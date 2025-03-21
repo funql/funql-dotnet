@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-03-21
+
 ### Changed
 
 - Update logo to smaller size
@@ -23,5 +25,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Initial public release.
 
-[unreleased]: https://github.com/funql/funql-dotnet/compare/1.0.0...HEAD
+[unreleased]: https://github.com/funql/funql-dotnet/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/funql/funql-dotnet/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/funql/funql-dotnet/releases/tag/1.0.0
