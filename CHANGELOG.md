@@ -9,6 +9,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+
+- Update logo to smaller size
+- Update README so that logo is correctly shown on NuGet
+
+### Fixed
+
+- Update parse logic to throw a `SyntaxException` for unexpected tokens at the end of a request/parameter. For example, 
+  parsing request `listSets()invalid` now throws a `SyntaxException` for the unexpected `invalid` token.
+
 ## [1.0.0] - 2025-03-19
 
 Initial public release.
