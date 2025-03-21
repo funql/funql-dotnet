@@ -4,9 +4,9 @@
 using FunQL.Core.Lexers;
 using Xunit;
 
-namespace FunQL.Core.Tests.Lexing;
+namespace FunQL.Core.Tests.Lexers;
 
-public class LexerTests
+public class StringLexerTests
 {
     [Fact]
     public void NextToken_ShouldNotThrow()
