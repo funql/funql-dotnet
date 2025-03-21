@@ -50,6 +50,9 @@ public class RequestParser(IParameterParser parameterParser) : IRequestParser
 
         state.ExpectToken(TokenType.CloseParen);
 
+        // Assure there's no other tokens
+        state.ExpectToken(TokenType.Eof);
+
         state.DecreaseDepth();
         return new Request(requestName, parameters, metadata);
     }

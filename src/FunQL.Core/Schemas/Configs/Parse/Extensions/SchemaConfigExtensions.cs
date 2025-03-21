@@ -102,6 +102,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseInput(parserState)
                 : new Input(parser.ParseConstant(parserState));
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         if (!string.IsNullOrEmpty(filter))
@@ -112,6 +115,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseFilter(parserState)
                 : new Filter(parser.ParseBooleanExpression(parserState));
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         if (!string.IsNullOrEmpty(sort))
@@ -135,6 +141,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseSort(parserState)
                 : ParseExpressions();
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         if (!string.IsNullOrEmpty(skip))
@@ -145,6 +154,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseSkip(parserState)
                 : new Skip(parser.ParseConstant(parserState));
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         if (!string.IsNullOrEmpty(limit))
@@ -155,6 +167,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseLimit(parserState)
                 : new Limit(parser.ParseConstant(parserState));
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         if (!string.IsNullOrEmpty(count))
@@ -165,6 +180,9 @@ public static class SchemaConfigExtensions
                 ? parser.ParseCount(parserState)
                 : new Count(parser.ParseConstant(parserState));
             parameters.Add(parameter);
+
+            // Assure there's no other tokens
+            parserState.ExpectToken(TokenType.Eof);
         }
 
         return new Request(requestName, parameters);
