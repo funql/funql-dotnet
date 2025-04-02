@@ -1,0 +1,33 @@
+@WebApi_HostAddress = http://localhost:5107
+
+GET {{WebApi_HostAddress}}/sets
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/sets?
+    filter=eq(year(launchTime),2022)
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/sets?
+    sort=desc(launchTime)
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/sets?
+    skip=1&
+    limit=1&
+    count=true
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/sets?
+    filter=and(has(upper(name),"STAR WARS"),gte(price,500),gt(year(launchTime),2010))&
+    sort=desc(price)
+Accept: application/json
+
+###

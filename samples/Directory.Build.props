@@ -1,0 +1,3 @@
+﻿<Project>
+    <!-- Empty file to stop MSBuild from using .props files up the file tree for the samples -->
+</Project>
