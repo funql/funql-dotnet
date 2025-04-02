@@ -1,0 +1,35 @@
+﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: build-samples
+on:
+  # Allow running the workflow manually from the GitHub UI
+  workflow_dispatch:
+  push:
+    branches:
+      # Run the workflow when pushing to the main branch
+      - main
+    paths:
+      # Only run when samples change
+      - "samples/**"
+  pull_request:
+    branches:
+      # Run the workflow for all pull requests for the main branch
+      - main
+    paths:
+      # Only run when samples change
+      - "samples/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET (global.json)
+        uses: actions/setup-dotnet@v4
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: samples
+      - name: Build
+        run: dotnet build -c Release --no-restore
+        working-directory: samples
