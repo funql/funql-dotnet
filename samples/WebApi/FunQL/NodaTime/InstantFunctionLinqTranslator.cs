@@ -21,7 +21,8 @@ namespace WebApi.FunQL.NodaTime;
 public class InstantFunctionLinqTranslator : FieldFunctionLinqTranslator
 {
     /// <summary>Empty <see cref="Instant"/> we can use to get <see cref="MethodInfo"/>.</summary>
-    private static readonly Instant DefaultInstant;
+    // ReSharper disable once RedundantDefaultMemberInitializer
+    private static readonly Instant DefaultInstant = default;
     /// <summary>The <see cref="MethodInfo"/> for <see cref="Instant.ToDateTimeUtc"/>.</summary>
     private static readonly MethodInfo InstantToDateTimeUtcMethod =
         MethodInfoUtil.MethodOf(DefaultInstant.ToDateTimeUtc);
