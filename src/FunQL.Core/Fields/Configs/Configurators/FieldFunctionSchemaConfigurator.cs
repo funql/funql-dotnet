@@ -25,9 +25,9 @@ public sealed class FieldFunctionSchemaConfigurator : ISchemaConfigurator
         config.AddFunctionConfig(Minute.FunctionName, typeof(int), typeof(object));
         config.AddFunctionConfig(Second.FunctionName, typeof(int), typeof(object));
         config.AddFunctionConfig(Millisecond.FunctionName, typeof(int), typeof(object));
-        config.AddFunctionConfig(Floor.FunctionName, typeof(int), typeof(object));
-        config.AddFunctionConfig(Ceiling.FunctionName, typeof(int), typeof(object));
-        config.AddFunctionConfig(Round.FunctionName, typeof(int), typeof(object));
+        config.AddFunctionConfig(Floor.FunctionName, typeof(object), typeof(object));
+        config.AddFunctionConfig(Ceiling.FunctionName, typeof(object), typeof(object));
+        config.AddFunctionConfig(Round.FunctionName, typeof(object), typeof(object));
         config.AddFunctionConfig(Lower.FunctionName, typeof(string), typeof(string));
         config.AddFunctionConfig(Upper.FunctionName, typeof(string), typeof(string));
         config.AddFunctionConfig(IsNull.FunctionName, typeof(object), typeof(object));
