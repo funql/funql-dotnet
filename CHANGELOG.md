@@ -9,6 +9,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+
+- Improve how expected Constant types are resolved
+
+### Fixed
+
+- Fix Math field function LINQ translations (round, ceiling and floor)
+- Fix IsNull field function type resolution
+
 ## [1.0.1] - 2025-03-21
 
 This release fixes a bug with parsing and ensures the logo is correctly displayed on NuGet. 
