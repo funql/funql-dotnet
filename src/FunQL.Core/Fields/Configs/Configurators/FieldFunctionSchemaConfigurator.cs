@@ -30,6 +30,6 @@ public sealed class FieldFunctionSchemaConfigurator : ISchemaConfigurator
         config.AddFunctionConfig(Round.FunctionName, typeof(object), typeof(object));
         config.AddFunctionConfig(Lower.FunctionName, typeof(string), typeof(string));
         config.AddFunctionConfig(Upper.FunctionName, typeof(string), typeof(string));
-        config.AddFunctionConfig(IsNull.FunctionName, typeof(object), typeof(object));
+        config.AddFunctionConfig(IsNull.FunctionName, typeof(bool), typeof(object));
     }
 }
