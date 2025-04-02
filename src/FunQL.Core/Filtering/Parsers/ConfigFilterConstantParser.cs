@@ -46,20 +46,29 @@ public class ConfigFilterConstantParser(IConstantParser constantParser) : IFilte
 
     private static Type Resolve(IParserState state, string expressionName, FieldArgument fieldArgument)
     {
+        // Try to resolve type from expression
         var expressionConstantType = Resolve(state, expressionName);
-        // Early return if expression's constant type is specific (not object)
         if (expressionConstantType.Type != typeof(object))
+            // Expression returns specific type, so use expression's type
             return expressionConstantType.Type;
-
-        // No specific type, so try to resolve type from argument
-        var fieldArgumentType = fieldArgument switch
+        
+        // Try to resolve type from argument
+        switch (fieldArgument)
         {
-            FieldPath path => Resolve(state, path),
-            FieldFunction function => Resolve(state, function),
-            _ => throw new ArgumentOutOfRangeException(nameof(fieldArgument))
-        };
-
-        return fieldArgumentType.Type;
+            case FieldFunction function:
+            {
+                var functionType = Resolve(state, function);
+                return functionType.Type != typeof(object) 
+                    // Function returns specific type, so use function's type
+                    ? functionType.Type 
+                    // Function returns generic type (object), so resolve more specific type from FieldPath
+                    : Resolve(state, function.FieldPath).Type;
+            }
+            case FieldPath path:
+                return Resolve(state, path).Type;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(fieldArgument));
+        }
     }
 
     private static ITypeConfig Resolve(IParserState state, string expressionName)

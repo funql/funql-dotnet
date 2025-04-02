@@ -130,6 +130,7 @@ public sealed class FilterHasValidConstantTypes() : CompositeValidationRule(
                 ?? throw new InvalidOperationException("Filter function must be set");
             var fieldFunctionName = context.FieldFunctionName;
 
+            // Try to get expected type from FilterFunction
             var expressionConstantTypeConfig = schemaConfig.FindFunctionConfig(filterFunctionName)
                 ?.ArgumentTypeConfigs
                 .ElementAtOrDefault(1);
@@ -137,28 +138,31 @@ public sealed class FilterHasValidConstantTypes() : CompositeValidationRule(
                 return Task.CompletedTask;
 
             var constantTypeConfig = expressionConstantTypeConfig;
-            if (constantTypeConfig.Type == typeof(object))
+            // Try to get expected type from FieldFunction if no specific type found yet
+            if (constantTypeConfig.Type == typeof(object) && fieldFunctionName != null)
             {
-                if (fieldFunctionName != null)
-                {
-                    constantTypeConfig = schemaConfig.FindFunctionConfig(fieldFunctionName)?.ReturnTypeConfig;
-                }
-                else
-                {
-                    foreach (var (_, _, typeConfig) in node.ResolveConfigs(requestConfig.ReturnTypeConfig))
-                    {
-                        constantTypeConfig = typeConfig;
-                        if (constantTypeConfig == null)
-                            break;
-                    }
-                }
-
+                constantTypeConfig = schemaConfig.FindFunctionConfig(fieldFunctionName)?.ReturnTypeConfig;
+            
                 if (constantTypeConfig == null)
                     return Task.CompletedTask;
             }
 
+            // Try to get expected type from Field if no specific type found yet
+            if (constantTypeConfig.Type == typeof(object))
+            {
+                foreach (var (_, _, typeConfig) in node.ResolveConfigs(requestConfig.ReturnTypeConfig))
+                {
+                    constantTypeConfig = typeConfig;
+                    if (constantTypeConfig == null)
+                        break;
+                }
+                
+                if (constantTypeConfig == null)
+                    return Task.CompletedTask;
+            }
+            
             context.FieldPath = node;
-            context.ExpectedConstantType = constantTypeConfig?.Type;
+            context.ExpectedConstantType = constantTypeConfig.Type;
             context.IsExpectedConstantNullable = expressionConstantTypeConfig.IsNullable;
 
             return Task.CompletedTask;
