@@ -43,6 +43,14 @@ dotnet add package FunQL
 - Configurable JSON serialization — Works out of the box with `System.Text.Json` and supports external JSON libraries
   like `NewtonSoft.Json` for greater flexibility.
 
+## Samples
+
+The [samples](https://github.com/funql/funql-dotnet/tree/main/samples) directory contains example projects that
+demonstrate how to use FunQL .NET in different scenarios.
+
+- [`WebApi`](https://github.com/funql/funql-dotnet/tree/main/samples/WebApi) - A basic example of a REST API that
+  integrates FunQL .NET with Entity Framework Core (EF Core), Noda Time, System.Text.Json, and minimal APIs.
+
 ## License
 
 - FunQL software is dual-licensed:
