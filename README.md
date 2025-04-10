@@ -20,6 +20,12 @@ more about FunQL, visit [funql.io](https://funql.io/).
 | `FunQL.Core` | [![NuGet](https://img.shields.io/nuget/v/FunQL.Core)](https://www.nuget.org/packages/FunQL.Core) | Provides the core functionality, including parsing, validating, and executing requests. |
 | `FunQL.Linq` | [![NuGet](https://img.shields.io/nuget/v/FunQL.Linq)](https://www.nuget.org/packages/FunQL.Linq) | Translates FunQL queries into LINQ expressions.                                         |
 
+## Documentation
+
+This README provides a quick overview of FunQL .NET and its capabilities. For detailed documentation, check out
+[dotnet.funql.io](https://dotnet.funql.io/) and [funql.io](https://funql.io/). For hands-on experience, explore the
+[samples](https://github.com/funql/funql-dotnet/tree/main/samples) directory.
+
 ## Installation
 
 FunQL .NET is available on [NuGet](https://www.nuget.org/packages/FunQL). Install it via the NuGet Package Manager, or
