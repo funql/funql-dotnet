@@ -48,8 +48,11 @@ dotnet add package FunQL
 The [samples](https://github.com/funql/funql-dotnet/tree/main/samples) directory contains example projects that
 demonstrate how to use FunQL .NET in different scenarios.
 
-- [`WebApi`](https://github.com/funql/funql-dotnet/tree/main/samples/WebApi) - A basic example of a REST API that
-  integrates FunQL .NET with Entity Framework Core (EF Core), Noda Time, System.Text.Json, and minimal APIs.
+- [`Basic`](https://github.com/funql/funql-dotnet/tree/main/samples/Basic) - A minimal, self-contained console
+  application that demonstrates how to configure a FunQL schema, use LINQ to apply queries, and filter and sort data
+  using FunQL query parameters.
+- [`WebApi`](https://github.com/funql/funql-dotnet/tree/main/samples/WebApi) - A REST API example that integrates FunQL
+  .NET with Entity Framework Core (EF Core), Noda Time, System.Text.Json, and minimal APIs.
 
 ## License
 
