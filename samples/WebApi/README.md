@@ -1,8 +1,8 @@
 # FunQL .NET WebApi Sample
 
-This sample demonstrates how to integrate **FunQL .NET** into a **RESTful ASP.NET Core Web API**. It showcases the use
-of **Entity Framework Core (EF Core)** for database access, **Noda Time** for advanced date handling,
-**System.Text.Json** for serialization, and **minimal APIs** for a lightweight endpoint structure.
+This sample demonstrates how to integrate FunQL .NET into a RESTful ASP.NET Core Web API. It showcases the use of Entity
+Framework Core (EF Core) for database access, Noda Time for advanced date handling, System.Text.Json for serialization,
+and minimal APIs for a lightweight endpoint structure.
 
 ## Prerequisites
 
@@ -25,8 +25,8 @@ dotnet run
 
 ### 3. Test the API
 
-The API exposes endpoints that accept FunQL query parameters. You can test it using tools like **Postman** or **cURL**,
-or use the **WebApi.http** file included with the sample project.
+The API exposes endpoints that accept FunQL query parameters. You can test it using tools like Postman or cURL, or use
+the `WebApi.http` file included with the sample project.
 
 #### Example request
 
@@ -38,9 +38,9 @@ curl "http://localhost:5107/sets?filter=and(has(upper(name),\"STAR%20WARS\"),gte
 
 The response includes all LEGO sets where:
 
-- The name contains "STAR WARS".
-- The price is at least 500.
-- The launchTime is later than 2010.
+- The uppercased `name` contains `"STAR WARS"`
+- The `price` is greater than or equal to `500`
+- The `launchTime`'s year is greater than `2010`
 
 ```json
 [
