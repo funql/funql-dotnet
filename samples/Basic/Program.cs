@@ -114,7 +114,7 @@ public sealed class ApiSchema : Schema
                     // Using '.SupportsStringFilterFunctions()' enables support for:
                     // - eq, neq
                     // - gt, gte, lt, lte
-                    // - has, stw, enw, reg,
+                    // - has, stw, enw, reg
                     // - lower, upper
                     .SupportsFilter(it => it.SupportsStringFilterFunctions())
                     // Enable support for sorting on this field
@@ -124,7 +124,7 @@ public sealed class ApiSchema : Schema
                 set.SimpleField(it => it.Price)
                     .HasName("price")
                     // Using '.SupportsDoubleFilterFunctions()' enables support for:
-                    // - eq, neq,
+                    // - eq, neq
                     // - gt, gte, lt, lte
                     // - floor, ceil, round
                     .SupportsFilter(it => it.SupportsDoubleFilterFunctions())
