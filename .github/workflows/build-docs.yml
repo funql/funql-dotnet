@@ -1,0 +1,45 @@
+﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: build-docs
+
+on:
+  # Allow running the workflow manually from the GitHub UI
+  workflow_dispatch:
+  # Only run on PRs to make sure PRs don't break docs; 'publish-docs' handles pushes to main
+  pull_request:
+    branches:
+      # Run the workflow for all pull requests for the main branch
+      - main
+    paths:
+      # Only run on changes to docs
+      - ".github/workflows/build-docs.yml"
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        # Fetch all history for all tags and branches
+        # mkdocs-git-revision-date-localized-plugin needs access to the last commit that touched a specific file
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r ./requirements.txt
+
+      - name: Build
+        run: mkdocs build
