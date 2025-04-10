@@ -9,17 +9,19 @@ on:
       # Run the workflow when pushing to the main branch
       - main
     paths-ignore:
-      # Don't run on changes to .md files and docs/
+      # Don't run on changes to .md, docs/ and samples/
       - "**.md"
       - "docs/**"
+      - "samples/**"
   pull_request:
     branches:
       # Run the workflow for all pull requests for the main branch
       - main
     paths-ignore:
-      # Don't run on changes to .md files and docs/
+      # Don't run on changes to .md, docs/ and samples/
       - "**.md"
       - "docs/**"
+      - "samples/**"
 
 jobs:
   build:

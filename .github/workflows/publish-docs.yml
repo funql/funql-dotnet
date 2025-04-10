@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 jobs:
-  deploy_docs:
+  publish:
     runs-on: ubuntu-latest
     
     steps:
