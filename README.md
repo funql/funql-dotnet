@@ -15,8 +15,20 @@ FunQL .NET to enhance your existing REST API with ready-to-use components for fi
 — or build a new FunQL API from scratch.
 
 FunQL .NET integrates seamlessly with LINQ and Entity Framework Core (EF Core), allowing you to translate FunQL queries
-directly into efficient database expressions. It is non-invasive and drop-in ready: you can plug it into your existing
-endpoints without rewriting your API logic.
+directly into efficient database expressions. It is drop-in ready and non-invasive: plug it into your existing endpoints
+without rewriting your API logic.
+
+A typical FunQL query might look like this:
+
+```
+GET https://api.play.funql.io/sets?filter=
+  and(
+    has(upper(name), "STAR WARS"),
+    gte(price, 500),
+    gt(year(launchTime), 2010)
+  )
+  &sort=desc(price)
+```
 
 To learn more about FunQL, visit [funql.io](https://funql.io/).
 
