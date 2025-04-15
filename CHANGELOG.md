@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-04-15
+
 ### Added
 
 - Add WebApi sample
@@ -41,6 +43,7 @@ This release fixes a bug with parsing and ensures the logo is correctly displaye
 
 Initial public release.
 
-[unreleased]: https://github.com/funql/funql-dotnet/compare/1.0.1...HEAD
+[unreleased]: https://github.com/funql/funql-dotnet/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/funql/funql-dotnet/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/funql/funql-dotnet/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/funql/funql-dotnet/releases/tag/1.0.0
