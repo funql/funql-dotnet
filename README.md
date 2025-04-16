@@ -7,7 +7,7 @@
 [![Latest version](https://img.shields.io/nuget/v/FunQL.Core)](https://www.nuget.org/packages/FunQL)
 [![Build status](https://github.com/funql/funql-dotnet/workflows/build/badge.svg)](https://github.com/funql/funql-dotnet/actions/workflows/build.yml)
 
-FunQL .NET lets you easily expose filtering, sorting, and pagination in your API — using a clean, functional query
+FunQL .NET lets you easily add filtering, sorting, and pagination to your API — using a simple, functional query
 language that works out of the box.
 
 It is the official .NET implementation of [FunQL](https://funql.io/), the open-source Functional Query Language. Use
@@ -48,16 +48,20 @@ This README provides a quick overview of FunQL .NET and its capabilities. For de
 
 ## Quick start
 
-To use FunQL .NET, you need two things: a queryable collection of data and a FunQL schema. The schema serves as the main
-entry point for handling FunQL requests. It defines the configuration for fields, available functions like filtering and
-sorting, and features such as LINQ support.
+To use FunQL .NET, you only need two things: a queryable collection of data and a FunQL schema. The schema serves as the
+main entry point for handling FunQL requests. It defines the configuration for fields, available functions like
+filtering and sorting, and features such as LINQ support.
 
-To get started, first add the [FunQL](https://www.nuget.org/packages/FunQL) package to your project by running the
-following command:
+### 1. Install the FunQL package
+
+FunQL .NET is available on [NuGet](https://www.nuget.org/profiles/funql). To get started, first add the [FunQL](
+https://www.nuget.org/packages/FunQL) package to your project by running the following command:
 
 ```shell
 dotnet add package FunQL
 ```
+
+### 2. Define your data model and FunQL schema
 
 Next, define your data model and configure a FunQL schema that describes the structure of your data and which fields can
 be filtered and sorted:
@@ -105,12 +109,14 @@ public sealed class ApiSchema : Schema
 }
 ```
 
+### 3. Prepare your data and query parameters
+
 Then, prepare a collection of data that you want to query and define the parameters of the request. In this example, we
-define a list of LEGO sets:
+define an in-memory list of LEGO sets:
 
 ```csharp
 // Prepare the data source
-// In real-world scenarios this would e.g. be an EF Core DbSet<Set> so FunQL can directly query the database
+// In real-world scenarios this would be e.g. an EF Core DbSet<Set> so FunQL can directly query the database
 IQueryable<Set> sets = new List<Set>
 {
     new("LEGO Star Wars Millennium Falcon", 849.99, DateTime.Parse("2017-10-01")),
@@ -126,6 +132,8 @@ const string filter = "and(has(upper(name), \"STAR WARS\"), gte(price, 500), gt(
 // Sort results by price in descending order
 const string sort = "desc(price)";
 ```
+
+### 4. Execute the query using FunQL .NET
 
 Finally, create the FunQL schema and execute a filter and sort request using FunQL .NET:
 
