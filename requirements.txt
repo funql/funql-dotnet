@@ -1,6 +1,6 @@
 # Requirements for core
 mkdocs~=1.6.1
-mkdocs-material~=9.6.11
+mkdocs-material~=9.6.12
 
 # Requirements for plugins
 mkdocs-git-committers-plugin-2~=2.5.0
