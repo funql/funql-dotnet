@@ -1,1 +1,24 @@
 ﻿# Integrations
+
+FunQL .NET is designed with extensibility at its core, making it highly adaptable to different technologies and 
+libraries in the .NET ecosystem. This section covers how popular .NET libraries can be integrated with FunQL.
+
+## Entity Framework Core
+
+TODO
+
+[Learn more about integrating Entity Framework Core →](efcore.md)
+
+## NodaTime
+
+[Noda Time](https://nodatime.org/) is a great alternative date and time API for .NET. When using NodaTime in your 
+project, however, the FunQL DateTime functions (like `year()`, `month()`, `day()`) will not work out of the box. 
+Fortunately, you can extend FunQL to add support for DateTime functions on NodaTime's `Instant` type.
+
+[Learn more about integrating NodaTime →](nodatime.md)
+
+## Newtonsoft.Json
+
+TODO
+
+[Learn more about integrating Newtonsoft.Json →](newtonsoftjson.md)
