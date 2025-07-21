@@ -1,12 +1,15 @@
 ﻿# NodaTime
 
-When you use [Noda Time](https://nodatime.org/) as your date and time API, FunQL's DateTime functions (like `year()`, 
+When using [Noda Time](https://nodatime.org/) as your date and time API, FunQL's DateTime functions (like `year()`, 
 `month()`, `day()`) will not work out of the box. Fortunately, FunQL is highly extendable and allows for adding this 
 functionality yourself.
 
+You can also find the NodaTime integration in the [WebApi sample](
+https://github.com/funql/funql-dotnet/tree/c2f9633f88e442f8e3d5b31579fa5d9dea6289e0/samples/WebApi/FunQL/NodaTime).
+
 ## Configuration
 
-### 1. Create Instant Translator
+### 1. Create Instant translator
 
 Implement a custom `FieldFunctionLinqTranslator` that converts NodaTime's `Instant` to .NET's `DateTime` for FunQL 
 operations:
@@ -48,7 +51,7 @@ public class InstantFunctionLinqTranslator : FieldFunctionLinqTranslator
 }
 ```
 
-### 2. Add Extension Method
+### 2. Add extension method
 
 Add an extension method to easily configure FunQL with NodaTime support:
 
@@ -85,7 +88,7 @@ public sealed class ApiSchema : Schema {
     protected override void OnInitializeSchema(ISchemaConfigBuilder schema) {         
         schema.AddLinqFeature(it =>
         {
-            // Add DateTime function support to NodaTime Instant
+            // Add DateTime function support for NodaTime Instant
             it.WithInstantFunctionLinqTranslator();
         });
     }
