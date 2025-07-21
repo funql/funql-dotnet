@@ -24,16 +24,16 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-      primary: indigo
-      accent: indigo
+      primary: teal
+      accent: teal
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-      primary: indigo
-      accent: indigo
+      primary: teal
+      accent: teal
   features:
     - navigation.tabs
     - navigation.sections
