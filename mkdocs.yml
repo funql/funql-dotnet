@@ -111,4 +111,19 @@ nav:
       - Licensing: licensing.md
   - Learn:
       - Getting started: learn/getting-started.md
+      - Schemas: 
+          - learn/schemas/index.md
+          - Features: learn/schemas/features.md
+          - Requests: learn/schemas/requests.md
+          - Parameters: learn/schemas/parameters.md
+          - Fields: learn/schemas/fields.md
+      - Integrations:
+          - learn/integrations/index.md
+          - Entity Framework: learn/integrations/efcore.md
+          - NodaTime: learn/integrations/nodatime.md
+          - Newtonsoft.Json: learn/integrations/newtonsoftjson.md
+      - Examples:
+          - learn/examples/index.md
+          - Basic: learn/examples/basic.md
+          - WebApi: learn/examples/webapi.md
   - Specification: https://funql.io/
