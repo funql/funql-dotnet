@@ -14,9 +14,10 @@ async performance with FunQL's `count()` parameter.
 
 ## NodaTime
 
-[Noda Time](https://nodatime.org/) is a great alternative date and time API for .NET. When using NodaTime in your 
-project, however, the FunQL DateTime functions (like `year()`, `month()`, `day()`) will not work out of the box. 
-Fortunately, you can extend FunQL to add support for DateTime functions on NodaTime's `Instant` type.
+[Noda Time](https://nodatime.org/) is a great alternative date and time API for .NET. Using NodaTime with FunQL requires
+configuring JSON serialization to handle NodaTime types (`Instant`, `LocalDate`, `LocalDateTime`). Additionally, to use
+FunQL DateTime functions (`year()`, `month()`, `day()`) with NodaTime types, you'll need to add a custom LINQ 
+translator.
 
 [Learn more about integrating NodaTime →](nodatime.md)
 
