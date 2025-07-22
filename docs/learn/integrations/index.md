@@ -22,6 +22,8 @@ Fortunately, you can extend FunQL to add support for DateTime functions on NodaT
 
 ## Newtonsoft.Json
 
-TODO
+FunQL uses [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview) 
+by default for JSON serialization, as it's built into .NET. For projects requiring [Newtonsoft.Json](
+https://www.newtonsoft.com/json) (JSON.NET), FunQL allows for fully customizing the serialization process.
 
 [Learn more about integrating Newtonsoft.Json →](newtonsoftjson.md)
