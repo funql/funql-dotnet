@@ -8,7 +8,6 @@ quickly.
 The Basic example is a minimal, self-contained console application that demonstrates how to:
 
 - Configure a FunQL schema
-- Use LINQ to apply queries
 - Filter and sort data using FunQL query parameters
 
 [Learn more about the Basic example →](basic.md)
@@ -19,8 +18,8 @@ The WebApi example showcases how to integrate FunQL into a real-world ASP.NET Co
 covers:
 
 - Setting up FunQL in an ASP.NET Core project
-- Integrating with Entity Framework Core (EF Core)
-- Integrating with Noda Time
+- Integrating with [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) (EF Core)
+- Integrating with [Noda Time](https://nodatime.org/)
 - Creating minimal APIs with FunQL support
 
 [Learn more about the WebApi example →](webapi.md)
