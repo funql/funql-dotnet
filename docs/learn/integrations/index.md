@@ -5,7 +5,10 @@ libraries in the .NET ecosystem. This section covers how popular .NET libraries 
 
 ## Entity Framework Core
 
-TODO
+FunQL seamlessly integrates with [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/), using `IQueryable`
+LINQ expressions that EF Core efficiently translates into database queries. While this integration works out of the box,
+you can enhance it further by implementing EF Core-specific optimizations, such as using `CountAsync()` for improved
+async performance with FunQL's `count()` parameter.
 
 [Learn more about integrating Entity Framework Core →](efcore.md)
 
