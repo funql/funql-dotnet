@@ -41,7 +41,7 @@ To get started quickly, add the most commonly used features:
 - **LINQ feature**: Allows FunQL queries to be translated into LINQ expressions, enabling integration with in-memory 
   `IQueryable` collections or databases like Entity Framework (EF) Core.
 
-``` csharp
+```csharp
 public sealed class ApiSchema : Schema
 {
     protected override void OnInitializeSchema(ISchemaConfigBuilder schema)
@@ -56,9 +56,8 @@ public sealed class ApiSchema : Schema
 
 ## Adding requests
 
-In FunQL, **requests** define the entry points to your schema. They represent the operations or endpoints that users can 
-query, specifying what kind of data can be fetched and how it can be filtered or sorted. A request ties your schema to 
-your data model and dictates the parameters a query can use.
+In FunQL, requests define the entry points to your data. They represent the operations or endpoints that users can 
+query, specifying what kind of data can be fetched and how it can be filtered or sorted.
 
 ### Key concepts of requests
 
@@ -66,12 +65,12 @@ your data model and dictates the parameters a query can use.
    specify the operation to execute.
 2. **Parameters**: Requests can support parameters like `filter()` and `sort()` to provide advanced querying 
    capabilities.
-3. **Return type**: Requests define the type of data they return, for example, a list of objects.
+3. **Return type**: Requests specify the type of data they return, such as a list of objects.
 
 ### Define the data model
 
-For this example we will add a `listSets` request that allows us to **filter** and **sort** LEGO sets. First, we need 
-to define the data model that represents the LEGO sets:
+As an example, we'll configure a `listSets` request with support for filtering and sorting a list of LEGO sets. Start by 
+defining the data model that represents the LEGO sets:
 
 ```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);
@@ -81,19 +80,20 @@ This model allows us to filter and sort on `Name`, `Price`, and `LaunchTime`.
 
 ### Define the request
 
-Add the `listSets` request in the schema:
+Next, define the `listSets` request in the schema:
 
 ```csharp 
 public sealed class ApiSchema : Schema
 { 
-    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) {        
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) 
+    {        
         // Add the 'listSets' request 
         schema.Request("listSets")
             // Enable support for the 'filter()' parameter 
             .SupportsFilter()
             // Enable support for the 'sort()' parameter 
             .SupportsSort()            
-            // Define the return type (List<Set>)
+            // Define the return type as a list of 'Set' objects (List<Set>)
             .ReturnsListOfObjects<Set>(set =>
             {
                 // Field configurations go here
@@ -102,27 +102,39 @@ public sealed class ApiSchema : Schema
 }
 ```
 
-TODO: Explain what this did
+At this point, the `listSets` request is defined and supports the `filter()` and `sort()` parameters. However, it 
+doesn't expose any fields to use for filtering or sorting yet. Let's configure the fields next.
 
 ### Configure fields
 
-Fields define which properties can be queried, filtered, and sorted. Each field must be explicitly configured for FunQL 
-to recognize them in queries. For example:
+Fields define which properties of the data model can be queried, filtered, and sorted. In the `Set` data model, we want 
+to expose `Name`, `Price`, and `LaunchTime` to allow advanced querying.
 
 ```csharp 
 public sealed class ApiSchema : Schema
 { 
-    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) {        
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) 
+    {        
         // Add the 'listSets' request 
         schema.Request("listSets")
             .SupportsFilter()
             .SupportsSort()            
             .ReturnsListOfObjects<Set>(set =>
             {
+                // Configure the 'Name' field
                 set.SimpleField(it => it.Name)
+                    // Override the default name ('Name') to use its JSON name
                     .HasName("name")
-                    .SupportsFilter(it => it.SupportsStringFilterFunctions())
-                    .SupportsSort(it => it.SupportsStringFieldFunctions());
+                    // Enable support for filtering on this field
+                    .SupportsFilter(it => 
+                        // Enable specific String filter functions like 'has()'
+                        it.SupportsStringFilterFunctions()
+                    )
+                    // Enable support for sorting on this field
+                    .SupportsSort(it => 
+                        // Enable specific String field functions like 'lower'
+                        it.SupportsStringFieldFunctions()
+                    );
 
                 set.SimpleField(it => it.Price)
                     .HasName("price")
@@ -137,5 +149,3 @@ public sealed class ApiSchema : Schema
     }
 }
 ```
-
-TODO: Explain what this did, maybe example FunQL query
