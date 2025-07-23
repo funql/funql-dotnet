@@ -111,12 +111,14 @@ nav:
       - Licensing: licensing.md
   - Learn:
       - Getting started: learn/getting-started.md
-      - Schemas: 
+      - Defining a schema: 
           - learn/schemas/index.md
           - Features: learn/schemas/features.md
           - Requests: learn/schemas/requests.md
           - Parameters: learn/schemas/parameters.md
           - Fields: learn/schemas/fields.md
+      - Executing queries:
+          - learn/execution/index.md
       - Integrations:
           - learn/integrations/index.md
           - Entity Framework: learn/integrations/efcore.md
