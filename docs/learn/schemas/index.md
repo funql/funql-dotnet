@@ -65,12 +65,46 @@ query, specifying what kind of data can be fetched and how it can be filtered or
    specify the operation to execute.
 2. **Parameters**: Requests can support parameters like `filter()` and `sort()` to provide advanced querying 
    capabilities.
-3. **Return type**: Requests specify the type of data they return, such as a list of objects.
+3. **Return type**: Requests have a return type, such as a list of objects, specifying which fields are returned and how 
+   they can be filtered and sorted.
 
-### Define the data model
+### Example request
 
-As an example, we'll configure a `listSets` request with support for filtering and sorting a list of LEGO sets. Start by 
-defining the data model that represents the LEGO sets:
+As an example, we'll configure a `listSets` request with support for filtering and sorting a list of LEGO sets. Once 
+configured, you can execute advanced FunQL queries like:
+
+=== "REST"
+
+    ```funql
+    GET http://localhost:5000/sets
+      ?filter=and(
+        has(upper(name), "STAR WARS"),
+        gte(price, 500),
+        gt(year(launchTime), 2010)
+      )
+      &sort=desc(price)
+    ```
+
+=== "QL"
+
+    ```funql
+    listSets(
+      filter(
+        and(
+          has(upper(name), "STAR WARS"),
+          gte(price, 500),
+          gt(year(launchTime), 2010)
+        )
+      ),
+      sort(
+        desc(price)
+      )
+    )
+    ```
+
+#### 1. Define the data model
+
+Start by defining the data model that represents the LEGO sets:
 
 ```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);
@@ -78,7 +112,7 @@ public sealed record Set(string Name, double Price, DateTime LaunchTime);
 
 This model allows us to filter and sort on `Name`, `Price`, and `LaunchTime`.
 
-### Define the request
+#### 2. Define the request
 
 Next, define the `listSets` request in the schema:
 
@@ -105,7 +139,7 @@ public sealed class ApiSchema : Schema
 At this point, the `listSets` request is defined and supports the `filter()` and `sort()` parameters. However, it 
 doesn't expose any fields to use for filtering or sorting yet. Let's configure the fields next.
 
-### Configure fields
+#### 3. Configure fields
 
 Fields define which properties of the data model can be queried, filtered, and sorted. In the `Set` data model, we want 
 to expose `Name`, `Price`, and `LaunchTime` to allow advanced querying.
@@ -149,3 +183,5 @@ public sealed class ApiSchema : Schema
     }
 }
 ```
+
+The `Schema` is now fully configured and ready to handle `listSets` requests!
