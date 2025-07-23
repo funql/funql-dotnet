@@ -56,22 +56,22 @@ public sealed class ApiSchema : Schema
 
 ## Adding requests
 
-In FunQL, requests define the entry points to your data. They represent the operations or endpoints that users can 
-query, specifying what kind of data can be fetched and how it can be filtered or sorted.
+In FunQL, requests define the entry points to your schema. They represent the operations that users can query, 
+specifying what data can be fetched and how it can be filtered or sorted.
 
 ### Key concepts of requests
 
-1. **Request name**: Each request is uniquely identified by a name, like `listSets`. This name is used in queries to 
-   specify the operation to execute.
-2. **Parameters**: Requests can support parameters like `filter()` and `sort()` to provide advanced querying 
-   capabilities.
-3. **Return type**: Requests have a return type, such as a list of objects, specifying which fields are returned and how 
-   they can be filtered and sorted.
+1. **Request name**: Each request has a unique identifier, like `listSets`, used in queries to specify the operation to 
+   execute.
+2. **Parameters**: Requests specify which parameters they support, like the `filter()` and `sort()` parameters to 
+   provide advanced querying capabilities.
+3. **Return type**: Requests define the type of data returned, such as a list of objects, specifying which of the 
+   returned fields can be queried, filtered, and sorted.
 
 ### Example request
 
 As an example, we'll configure a `listSets` request with support for filtering and sorting a list of LEGO sets. Once 
-configured, you can execute advanced FunQL queries like:
+configured, the schema is ready to handle advanced FunQL queries like:
 
 === "REST"
 
@@ -102,19 +102,19 @@ configured, you can execute advanced FunQL queries like:
     )
     ```
 
-#### 1. Define the data model
+#### Define the data model
 
-Start by defining the data model that represents the LEGO sets:
+Start by defining the `Set` data model that represents the LEGO sets:
 
 ```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);
 ```
 
-This model allows us to filter and sort on `Name`, `Price`, and `LaunchTime`.
+The fields `Name`, `Price`, and `LaunchTime` will later be configured to support filtering and sorting.
 
-#### 2. Define the request
+#### Add the request
 
-Next, define the `listSets` request in the schema:
+Define the `listSets` request in the schema:
 
 ```csharp 
 public sealed class ApiSchema : Schema
@@ -136,20 +136,19 @@ public sealed class ApiSchema : Schema
 }
 ```
 
-At this point, the `listSets` request is defined and supports the `filter()` and `sort()` parameters. However, it 
-doesn't expose any fields to use for filtering or sorting yet. Let's configure the fields next.
+At this point, the `listSets` request is defined and supports the `filter()` and `sort()` parameters. However, the 
+fields must be explicitly configured before they can be filtered and sorted on, so let's configure this next.
 
-#### 3. Configure fields
+#### Configure fields
 
-Fields define which properties of the data model can be queried, filtered, and sorted. In the `Set` data model, we want 
-to expose `Name`, `Price`, and `LaunchTime` to allow advanced querying.
+Fields define which properties of the data model can be queried, filtered, and sorted. Expose the `Set` properties 
+(`Name`, `Price`, and `LaunchTime`) for filtering and sorting:
 
 ```csharp 
 public sealed class ApiSchema : Schema
 { 
     protected override void OnInitializeSchema(ISchemaConfigBuilder schema) 
-    {        
-        // Add the 'listSets' request 
+    {
         schema.Request("listSets")
             .SupportsFilter()
             .SupportsSort()            
@@ -161,27 +160,39 @@ public sealed class ApiSchema : Schema
                     .HasName("name")
                     // Enable support for filtering on this field
                     .SupportsFilter(it => 
-                        // Enable specific String filter functions like 'has()'
+                        // Enable String functions like:
+                        // - has(name, "War")
+                        // - stw(upper(name), "STAR")
                         it.SupportsStringFilterFunctions()
                     )
                     // Enable support for sorting on this field
                     .SupportsSort(it => 
-                        // Enable specific String field functions like 'lower'
+                        // Enable String functions like:
+                        // - asc(lower(name))
+                        // - desc(upper(name))
                         it.SupportsStringFieldFunctions()
                     );
 
                 set.SimpleField(it => it.Price)
                     .HasName("price")
-                    .SupportsFilter(it => it.SupportsDoubleFilterFunctions())
+                    .SupportsFilter(it => 
+                        // Enable Double functions like:
+                        // - eq(round(price), 100)
+                        it.SupportsDoubleFilterFunctions()
+                    )
                     .SupportsSort(it => it.SupportsDoubleFieldFunctions());
 
                 set.SimpleField(it => it.LaunchTime)
                     .HasName("launchTime")
-                    .SupportsFilter(it => it.SupportsDateTimeFilterFunctions())
+                    .SupportsFilter(it =>
+                        // Enable DateTime functions like:
+                        // - gte(year(launchTime), 2010)
+                        it.SupportsDateTimeFilterFunctions()
+                    )
                     .SupportsSort(it => it.SupportsDateTimeFieldFunctions());
             });
     }
 }
 ```
 
-The `Schema` is now fully configured and ready to handle `listSets` requests!
+The `Schema` is now fully configured and ready to handle `listSets` requests.
