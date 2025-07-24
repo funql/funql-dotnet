@@ -7,16 +7,22 @@ This section will explain more about how to query data and the underlying execut
 
 ## Execution pipeline
 
-Executing a FunQL request requires multiple steps, like parsing, validating, LINQ translation, and the actual execution.
-While you can use the `Schema` to run all these steps manually, FunQL comes with an execution pipeline that runs all
-these steps for you.
+Executing a FunQL request involves several steps, including parsing, validating, LINQ translation, and the actual query 
+execution. While you can use the `Schema` to handle these steps manually, the FunQL execution pipeline simplifies this 
+process by ensuring that all steps are performed in the correct order and in the right way, reducing complexity for
+developers.
 
 [Learn more about the execution pipeline →](pipeline.md)
 
 ## Example request
 
-For this example we will query an in-memory list of LEGO sets, which we configured in [Defining a schema](
-../schemas/index.md):
+For this example, we will query an in-memory list of LEGO sets, which we configured in [Defining a schema](
+../schemas/index.md). FunQL provides two execution methods:
+
+1. **`ExecuteRequestForParameters()`**: Designed for _REST_ APIs where FunQL parameters like `filter` and `sort` are 
+   passed as URL query parameters.
+2. **`ExecuteRequest()`**: Designed for full FunQL queries, treating FunQL as a query language (_QL_). This approach 
+   combines all parameters into a single query.
 
 === "REST"
 
@@ -56,8 +62,8 @@ For this example we will query an in-memory list of LEGO sets, which we configur
 
     <div class="result" markdown>
 
-    The `ExecuteRequestForParameters()` method will process the `filter` and `sort` parameters using the FunQL execution
-    pipeline, which runs the following steps:
+    The `ExecuteRequestForParameters()` method is ideal for REST APIs. It will process the `filter` and `sort` 
+    parameters using the FunQL execution pipeline, which runs the following steps:
     
     1. Parse the `filter` and `sort` parameters using the `listSets` request configuration
     2. Validate the parameters based on the `listSets` request configuration
@@ -106,8 +112,8 @@ For this example we will query an in-memory list of LEGO sets, which we configur
 
     <div class="result" markdown>
     
-    The `ExecuteRequest()` method will process the `request` using the FunQL execution pipeline, which runs the 
-    following steps:
+    The `ExecuteRequest()` method is designed for use cases where FunQL acts as a fully integrated query language. It 
+    will process the `request` using the FunQL execution pipeline, which runs the following steps:
     
     1. Parse the `request` using the `listSets` request configuration
     2. Validate the parameters based on the `listSets` request configuration
@@ -117,11 +123,16 @@ For this example we will query an in-memory list of LEGO sets, which we configur
 
     </div>
 
-This example only shows how to query an in-memory data source, but most of the time you'll want to query a database:
+This example demonstrates how to query an in-memory data source. However, in real-world applications, you will typically 
+need to:
 
-[Learn how to integrate FunQL with Entity Framework Core →](../integrations/efcore.md)
+- **Query an external database**: FunQL translates queries into LINQ expressions, enabling seamless integration with any
+  LINQ-compatible data provider, such as Entity Framework Core, Dapper, or others. This allows you to execute queries 
+  directly against your database.
 
-Instead of using static query parameters like in the example, one of the biggest use cases for FunQL is building a REST 
-API to support dynamic queries:
+    [Learn how to integrate FunQL with Entity Framework Core →](../integrations/efcore.md)
 
-[Learn how to use FunQL in a REST API →](../examples/webapi.md)
+- **Enhance your REST API with FunQL**: Utilize FunQL as part of your REST API by supporting advanced query capabilities 
+  like filtering, sorting, and pagination through URL query parameters.
+    
+    [Learn how to use FunQL in a REST API →](../examples/webapi.md)
