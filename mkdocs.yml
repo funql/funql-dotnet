@@ -119,6 +119,7 @@ nav:
           - Fields: learn/schemas/fields.md
       - Executing queries:
           - learn/execution/index.md
+          - Execution pipeline: learn/execution/pipeline.md
       - Integrations:
           - learn/integrations/index.md
           - Entity Framework: learn/integrations/efcore.md
