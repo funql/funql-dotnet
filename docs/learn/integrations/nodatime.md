@@ -1,18 +1,57 @@
 ﻿# NodaTime
 
-When using [Noda Time](https://nodatime.org/) as your date and time API, FunQL's DateTime functions (like `year()`, 
-`month()`, `day()`) will not work out of the box. Fortunately, FunQL is highly extendable and allows for adding this 
-functionality yourself.
+[Noda Time](https://nodatime.org/) is a great alternative date and time API for .NET. However, integrating NodaTime with
+FunQL requires additional configuration to handle JSON serialization and support FunQL's DateTime functions, such as 
+`year()`, `month()`, and `day()`.
 
-You can also find the NodaTime integration in the [WebApi sample](
-https://github.com/funql/funql-dotnet/tree/c2f9633f88e442f8e3d5b31579fa5d9dea6289e0/samples/WebApi/FunQL/NodaTime).
+You can also refer to the [WebApi sample](https://github.com/funql/funql-dotnet/tree/main/samples/WebApi) for a 
+practical example of the NodaTime integration.
 
-## Configuration
+## Configuring JSON serialization
+
+To handle NodaTime types (`Instant`, `LocalDate`, `LocalDateTime`), you must configure JSON serialization. FunQL uses 
+`System.Text.Json` by default, and the easiest way to add support for NodaTime types is through the 
+[NodaTime.Serialization.SystemTextJson](https://nodatime.org/serialization/systemtextjson) library.
+
+### 1. Install the package
+
+Run the following command to add the [NodaTime.Serialization.SystemTextJson](
+https://nodatime.org/serialization/systemtextjson) library:
+
+```shell
+dotnet add package NodaTime.Serialization.SystemTextJson
+```
+
+### 2. Configure JSON for NodaTime
+
+Update your `Schema` to include a custom `JsonSerializerOptions` configuration with NodaTime support:
+
+```csharp
+public sealed class ApiSchema : Schema { 
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) {     
+        // Create custom JsonSerializerOptions for FunQL
+        var jsonSerializerOptions = new JsonSerializerOptions() 
+            // Add support for NodaTime types
+            .ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+        
+        // Apply the configured JsonSerializerOptions to FunQL
+        schema.JsonConfig()
+            .WithJsonSerializerOptions(jsonSerializerOptions);
+    }
+}
+```
+
+This ensures that NodaTime types are correctly serialized and deserialized when interacting with FunQL.
+
+## Supporting DateTime functions
+
+FunQL's built-in DateTime functions (`year()`, `month()`, `day()`) only work with .NET's `DateTime` type by default. To 
+enable these functions for NodaTime's `Instant` type, we need to add a custom translator.
 
 ### 1. Create Instant translator
 
-Implement a custom `FieldFunctionLinqTranslator` that converts NodaTime's `Instant` to .NET's `DateTime` for FunQL 
-operations:
+Implement a custom `FieldFunctionLinqTranslator` that converts NodaTime's `Instant` to .NET's `DateTime`. This makes the 
+FunQL DateTime functions compatible with NodaTime types:
 
 ```csharp
 /// <summary>Translator for <see cref="Instant"/> functions.</summary>
@@ -53,7 +92,7 @@ public class InstantFunctionLinqTranslator : FieldFunctionLinqTranslator
 
 ### 2. Add extension method
 
-Add an extension method to easily configure FunQL with NodaTime support:
+To simplify adding NodaTime support to FunQL, create an extension method for the LINQ configuration:
 
 ```csharp
 /// <summary>Extensions related to <see cref="ILinqConfigBuilder"/> and <see cref="NodaTime"/>.</summary>
@@ -81,7 +120,8 @@ public static class LinqConfigBuilderNodaTimeExtensions
 
 ### 3. Configure Schema
 
-When configuring your FunQL schema, add NodaTime support:
+Finally, update your schema to include the custom translator for NodaTime's `Instant`:
+
 
 ```csharp
 public sealed class ApiSchema : Schema { 
@@ -95,4 +135,4 @@ public sealed class ApiSchema : Schema {
 }
 ```
 
-You can now use FunQL's DateTime functions on `Instant` types.
+That's it, you can now use FunQL's DateTime functions on `Instant` types.
