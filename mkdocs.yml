@@ -104,26 +104,26 @@ markdown_extensions:
 
 # Page tree
 nav:
-    - Introduction: index.md
-    - Getting started: getting-started.md
-    - Defining a schema:
-        - defining-a-schema/index.md
-        - Features: defining-a-schema/features.md
-        - Requests: defining-a-schema/requests.md
-        - Parameters: defining-a-schema/parameters.md
-        - Fields: defining-a-schema/fields.md
-    - Executing queries:
-        - executing-queries/index.md
-        - Execution pipeline: executing-queries/pipeline.md
-    - Integrations:
-        - integrations/index.md
-        - Entity Framework: integrations/efcore.md
-        - NodaTime: integrations/nodatime.md
-        - Newtonsoft.Json: integrations/newtonsoftjson.md
-    - Examples:
-        - examples/index.md
-        - Basic: examples/basic.md
-        - WebApi: examples/webapi.md
-    - Additional resources:
-        - Design philosophy: additional-resources/design-philosophy.md
-        - Licensing: additional-resources/licensing.md
+  - Introduction: index.md
+  - Getting started: getting-started.md
+  - Defining a schema:
+    - defining-a-schema/index.md
+    - Features: defining-a-schema/features.md
+    - Requests: defining-a-schema/requests.md
+    - Parameters: defining-a-schema/parameters.md
+    - Fields: defining-a-schema/fields.md
+  - Executing queries:
+    - executing-queries/index.md
+    - Execution pipeline: executing-queries/pipeline.md
+  - Integrations:
+    - integrations/index.md
+    - Entity Framework: integrations/efcore.md
+    - NodaTime: integrations/nodatime.md
+    - Newtonsoft.Json: integrations/newtonsoftjson.md
+  - Examples:
+    - examples/index.md
+    - Basic: examples/basic.md
+    - WebApi: examples/webapi.md
+  - Additional resources:
+    - Design philosophy: additional-resources/design-philosophy.md
+    - Licensing: additional-resources/licensing.md
