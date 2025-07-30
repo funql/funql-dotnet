@@ -35,7 +35,6 @@ theme:
       primary: teal
       accent: teal
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.indexes
     - navigation.instant
@@ -105,28 +104,26 @@ markdown_extensions:
 
 # Page tree
 nav:
-  - Home:
-      - index.md
-      - Design philosophy: design-philosophy.md
-      - Licensing: licensing.md
-  - Learn:
-      - Getting started: learn/getting-started.md
-      - Defining a schema: 
-          - learn/schemas/index.md
-          - Features: learn/schemas/features.md
-          - Requests: learn/schemas/requests.md
-          - Parameters: learn/schemas/parameters.md
-          - Fields: learn/schemas/fields.md
-      - Executing queries:
-          - learn/execution/index.md
-          - Execution pipeline: learn/execution/pipeline.md
-      - Integrations:
-          - learn/integrations/index.md
-          - Entity Framework: learn/integrations/efcore.md
-          - NodaTime: learn/integrations/nodatime.md
-          - Newtonsoft.Json: learn/integrations/newtonsoftjson.md
-      - Examples:
-          - learn/examples/index.md
-          - Basic: learn/examples/basic.md
-          - WebApi: learn/examples/webapi.md
-  - Specification: https://funql.io/
+    - Introduction: index.md
+    - Getting started: learn/getting-started.md
+    - Defining a schema:
+        - learn/schemas/index.md
+        - Features: learn/schemas/features.md
+        - Requests: learn/schemas/requests.md
+        - Parameters: learn/schemas/parameters.md
+        - Fields: learn/schemas/fields.md
+    - Executing queries:
+        - learn/execution/index.md
+        - Execution pipeline: learn/execution/pipeline.md
+    - Integrations:
+        - learn/integrations/index.md
+        - Entity Framework: learn/integrations/efcore.md
+        - NodaTime: learn/integrations/nodatime.md
+        - Newtonsoft.Json: learn/integrations/newtonsoftjson.md
+    - Examples:
+        - learn/examples/index.md
+        - Basic: learn/examples/basic.md
+        - WebApi: learn/examples/webapi.md
+    - Additional resources:
+        - Design philosophy: design-philosophy.md
+        - Licensing: licensing.md
