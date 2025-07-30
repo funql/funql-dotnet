@@ -210,4 +210,4 @@ The `Schema` is now fully configured and ready to handle `listSets` requests.
 
 ## Next steps
 
-Now that you've learned how to define a schema, let's learn how to [execute a query](../execution/index.md).
+Now that you've learned how to define a schema, let's learn how to [execute a query](../executing-queries/index.md).

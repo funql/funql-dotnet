@@ -17,7 +17,7 @@ developers.
 ## Example request
 
 For this example, we will query an in-memory list of LEGO sets, which we configured in [Defining a schema](
-../schemas/index.md). FunQL provides two execution methods:
+../defining-a-schema/index.md). FunQL provides two execution methods:
 
 1. **`ExecuteRequestForParameters()`**: Designed for _REST_ APIs where FunQL parameters like `filter` and `sort` are 
    passed as URL query parameters.
