@@ -105,25 +105,25 @@ markdown_extensions:
 # Page tree
 nav:
     - Introduction: index.md
-    - Getting started: learn/getting-started.md
+    - Getting started: getting-started.md
     - Defining a schema:
-        - learn/schemas/index.md
-        - Features: learn/schemas/features.md
-        - Requests: learn/schemas/requests.md
-        - Parameters: learn/schemas/parameters.md
-        - Fields: learn/schemas/fields.md
+        - defining-a-schema/index.md
+        - Features: defining-a-schema/features.md
+        - Requests: defining-a-schema/requests.md
+        - Parameters: defining-a-schema/parameters.md
+        - Fields: defining-a-schema/fields.md
     - Executing queries:
-        - learn/execution/index.md
-        - Execution pipeline: learn/execution/pipeline.md
+        - executing-queries/index.md
+        - Execution pipeline: executing-queries/pipeline.md
     - Integrations:
-        - learn/integrations/index.md
-        - Entity Framework: learn/integrations/efcore.md
-        - NodaTime: learn/integrations/nodatime.md
-        - Newtonsoft.Json: learn/integrations/newtonsoftjson.md
+        - integrations/index.md
+        - Entity Framework: integrations/efcore.md
+        - NodaTime: integrations/nodatime.md
+        - Newtonsoft.Json: integrations/newtonsoftjson.md
     - Examples:
-        - learn/examples/index.md
-        - Basic: learn/examples/basic.md
-        - WebApi: learn/examples/webapi.md
+        - examples/index.md
+        - Basic: examples/basic.md
+        - WebApi: examples/webapi.md
     - Additional resources:
-        - Design philosophy: design-philosophy.md
-        - Licensing: licensing.md
+        - Design philosophy: additional-resources/design-philosophy.md
+        - Licensing: additional-resources/licensing.md
