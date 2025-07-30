@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <PackageReference Include="Moq"/>
+        <PackageReference Include="Moq" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\FunQL.Core\FunQL.Core.csproj"/>
+        <ProjectReference Include="..\..\src\FunQL.Core\FunQL.Core.csproj" />
     </ItemGroup>
 
 </Project>

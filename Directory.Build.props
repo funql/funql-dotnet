@@ -24,9 +24,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)/LICENSE" Pack="true" PackagePath="/" Visible="false"/>
-        <None Include="$(MSBuildThisFileDirectory)/assets/icon.png" Pack="true" PackagePath="/icon.png" Visible="false"/>
-        <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="/README.md" Visible="false"/>
+        <None Include="$(MSBuildThisFileDirectory)/LICENSE" Pack="true" PackagePath="/" Visible="false" />
+        <None Include="$(MSBuildThisFileDirectory)/assets/icon.png" Pack="true" PackagePath="/icon.png" Visible="false" />
+        <None Include="$(MSBuildThisFileDirectory)/README.md" Pack="true" PackagePath="/README.md" Visible="false" />
     </ItemGroup>
 
     <!-- 
@@ -34,6 +34,6 @@
     https://github.com/dotnet/sourcelink) for packages
     -->
     <ItemGroup>
-        <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All"/>
+        <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All" />
     </ItemGroup>
 </Project>
