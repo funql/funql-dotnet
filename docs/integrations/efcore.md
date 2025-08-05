@@ -73,7 +73,7 @@ var result = await context
 That's it! FunQL seamlessly filters, sorts, and queries your database directly through the `DbSet<Set>`, leveraging EF 
 Core's powerful capabilities.
 
-## Optimize async support
+## Optimizing async support
 
 While FunQL integrates with EF Core out of the box, operations like counting can be further optimized. Using EF Core's 
 specialized async methods, such as `CountAsync()` for counting and `ToListAsync()` for data retrieval, improves
