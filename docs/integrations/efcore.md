@@ -31,14 +31,22 @@ public sealed class ApiSchema : Schema
 
 public class ApiContext : DbContext 
 {
-    public DbSet<Set> Sets { get; set; }
+    public DbSet<Set> Sets { get; set; }    
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // Replace with your database configuration
+        options.UseSqlServer("YourConnectionStringHere");
+    }
 }
 ```
 
 ### 2. Execute FunQL query
 
 With the `DbContext` configured, you can execute FunQL queries directly on a `DbSet<T>`. FunQL translates these queries
-into LINQ expressions, which EF Core then optimizes into database queries. Here's how to execute a query:
+into LINQ expressions, which EF Core then optimizes into database queries.
+
+Here's an example that queries LEGO sets priced at or above 500, sorted by price in descending order:
 
 ```csharp
 // Create the configured DbContext (or use dependency injection)
@@ -56,6 +64,10 @@ var result = await context
         sort: "desc(price)"
     );
 ```
+
+!!! note
+
+    In a real-world application, it's recommended to configure and manage your `DbContext` using dependency injection.
 
 That's it! FunQL seamlessly filters, sorts, and queries your database directly through the `DbSet<Set>`, leveraging EF 
 Core's powerful capabilities.
