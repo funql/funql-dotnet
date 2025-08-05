@@ -13,16 +13,21 @@ practical example of the EF Core integration.
 
 ## Getting started
 
-FunQL supports EF Core out of the box by working directly with `IQueryable` objects. Create a `DbContext` and then 
-directly execute FunQL queries using `DbSet<T>`, which implements `IQueryable`.
+FunQL offers seamless integration with EF Core by working directly with `IQueryable` objects. Create a `DbContext` and 
+then directly execute FunQL queries using `DbSet<T>`, which implements `IQueryable`.
 
-### Create DbContext
+### 1. Create DbContext
 
-As an example, we'll configure a `DbContext` for querying LEGO sets (as configured in [Defining a Schema](
-../defining-a-schema/index.md)):
+To begin, let's define a simple `DbContext` that represents our database. In this example, we'll create a context for 
+querying LEGO sets (as configured in [Defining a Schema](../defining-a-schema/index.md)):
 
 ```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);
+
+public sealed class ApiSchema : Schema
+{
+    // Code omitted for brevity, see 'Defining a Schema'
+}
 
 public class ApiContext : DbContext 
 {
@@ -30,10 +35,10 @@ public class ApiContext : DbContext
 }
 ```
 
-### Execute FunQL query
+### 2. Execute FunQL query
 
-With the `DbContext` configured, you can use FunQL to build and execute queries on it. Here's how you can configure 
-FunQL to work with your `DbContext`:
+With the `DbContext` configured, you can execute FunQL queries directly on a `DbSet<T>`. FunQL translates these queries
+into LINQ expressions, which EF Core then optimizes into database queries. Here's how to execute a query:
 
 ```csharp
 // Create the configured DbContext (or use dependency injection)
@@ -52,7 +57,8 @@ var result = await context
     );
 ```
 
-That's it! FunQL will execute a filtered and sorted query directly on your database with full async support.
+That's it! FunQL seamlessly filters, sorts, and queries your database directly through the `DbSet<Set>`, leveraging EF 
+Core's powerful capabilities.
 
 ## Optimize async support
 
@@ -66,7 +72,7 @@ optimize database interactions.
     `ToListAsync()`, it is necessary to use EF Core's `CountAsync()` directly as there's no generic interface for async 
     counting.
 
-### 1. Create EF Core execution handler
+### 1. Create execution handler
 
 Implement a custom `IExecutionHandler` that executes the LINQ queries using EF Core:
 
