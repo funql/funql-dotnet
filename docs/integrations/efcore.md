@@ -49,9 +49,9 @@ into LINQ expressions, which EF Core then optimizes into database queries.
 Here's an example that queries LEGO sets priced at or above 500, sorted by price in descending order:
 
 ```csharp
-// Create the configured DbContext (or use dependency injection)
+// Create the configured DbContext
 var context = new ApiContext();
-// Create the configured schema (or use dependency injection)
+// Create the configured schema
 var schema = new ApiSchema();
 
 // Execute the listSets() FunQL request on ApiContext.Sets
@@ -67,7 +67,8 @@ var result = await context
 
 !!! note
 
-    In a real-world application, it's recommended to configure and manage your `DbContext` using dependency injection.
+    In a real-world application, it's recommended to configure and manage your `DbContext` using dependency injection 
+    and not create an instance directly.
 
 That's it! FunQL seamlessly filters, sorts, and queries your database directly through the `DbSet<Set>`, leveraging EF 
 Core's powerful capabilities.
@@ -81,12 +82,13 @@ performance.
 !!! note
     
     FunQL executes LINQ queries asynchronously out of the box if `IQueryable` implements `IAsyncEnumerable`. The 
-    implementation is equivalent to calling EF Core's `ToListAsync()` method. However, when using FunQL's `count()` 
-    parameter, it's best to use EF Core's `CountAsync()` as there is no generic interface for async counting.
+    implementation is equivalent to calling EF Core's `ToListAsync()` method. However, there's no generic interface for 
+    async counting, making it necessary to explicitly use EF Core's `CountAsync()` via a custom execution handler when 
+    using FunQL's `count()` parameter.
 
 ### 1. Create execution handler
 
-Implement a custom `IExecutionHandler` that executes the LINQ queries using EF Core's asynchronous methods directly:
+Implement a custom `IExecutionHandler` to override the default implementation and directly use EF Core's async methods:
 
 ```csharp
 /// <summary>
@@ -209,4 +211,4 @@ public sealed class ApiSchema : Schema {
 }
 ```
 
-That's it, FunQL will now use EF Core's asynchronous methods directly when executing queries.
+That's it, FunQL will now directly use EF Core's async methods when executing queries.
