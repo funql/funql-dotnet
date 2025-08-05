@@ -74,19 +74,19 @@ Core's powerful capabilities.
 
 ## Optimize async support
 
-While FunQL integrates with EF Core out of the box, EF Core's asynchronous methods like `CountAsync()` can further 
-optimize database interactions. 
+While FunQL integrates with EF Core out of the box, operations like counting can be further optimized. Using EF Core's 
+specialized async methods, such as `CountAsync()` for counting and `ToListAsync()` for data retrieval, improves
+performance.
 
 !!! note
-
+    
     FunQL executes LINQ queries asynchronously out of the box if `IQueryable` implements `IAsyncEnumerable`. The 
-    implementation is equivalant to calling EF Core's `ToListAsync()` method. While not necessary to use EF Core's 
-    `ToListAsync()`, it is necessary to use EF Core's `CountAsync()` directly as there's no generic interface for async 
-    counting.
+    implementation is equivalent to calling EF Core's `ToListAsync()` method. However, when using FunQL's `count()` 
+    parameter, it's best to use EF Core's `CountAsync()` as there is no generic interface for async counting.
 
 ### 1. Create execution handler
 
-Implement a custom `IExecutionHandler` that executes the LINQ queries using EF Core:
+Implement a custom `IExecutionHandler` that executes the LINQ queries using EF Core's asynchronous methods directly:
 
 ```csharp
 /// <summary>
@@ -164,7 +164,7 @@ public class EntityFrameworkCoreExecuteLinqExecutionHandler : IExecutionHandler
 
 ### 2. Add extension method
 
-To simplify adding EF Core support to FunQL, create an extension method for the configuration:
+To simplify integration, create an extension method to include the EF Core optimizations:
 
 ```csharp
 /// <summary>
@@ -195,7 +195,7 @@ public static class ExecuteConfigBuilderEntityFrameworkCoreExtensions
 
 ### 3. Configure Schema
 
-Finally, update your schema to include the custom execution handler for EF Core:
+Finally, update your schema to include the custom EF Core execution handler:
 
 ```csharp
 public sealed class ApiSchema : Schema { 
@@ -209,4 +209,4 @@ public sealed class ApiSchema : Schema {
 }
 ```
 
-That's it, FunQL will now call specific async EF Core methods when executing queries.
+That's it, FunQL will now use EF Core's asynchronous methods directly when executing queries.
