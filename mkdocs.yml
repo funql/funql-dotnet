@@ -117,7 +117,7 @@ nav:
     - Execution pipeline: executing-queries/pipeline.md
   - Integrations:
     - integrations/index.md
-    - Entity Framework: integrations/efcore.md
+    - Entity Framework Core: integrations/efcore.md
     - NodaTime: integrations/nodatime.md
     - Newtonsoft.Json: integrations/newtonsoftjson.md
   - Examples:
