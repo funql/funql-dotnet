@@ -4,14 +4,14 @@ FunQL provides a modular architecture where each capability (like parse, validat
 feature. By adding only the features you need, you ensure that your schema remains lightweight and optimized for your
 use case.
 
-This section gives an overview of each feature, its purpose and how to add it to your schema.
+This section gives an overview of each feature, its purpose, and how to add it to your schema.
 
 ## Parse
 
 The parse feature enables the schema to parse raw FunQL queries into query nodes. Parsing is the first step in
 processing a FunQL query, converting it into an Abstract Syntax Tree (AST) for further processing.
 
-- **Purpose**: Converts raw FunQL queries into an internal data structure for further processing.
+- **Purpose**: Converts raw FunQL queries into a structured AST for further processing.
 - **When to use**: Add this feature when you need to parse incoming FunQL queries, e.g., in a REST API.
 - **Configuration**:
     ```csharp
@@ -28,10 +28,11 @@ processing a FunQL query, converting it into an Abstract Syntax Tree (AST) for f
 
 ## Validate
 
-The validate feature allows for validating that FunQL queries comply with the rules defined in the schema.
+The validate feature allows for validating that FunQL queries comply with the rules defined in the schema. It uses the 
+[visit feature](#visit) internally to traverse the AST for node validation.
 
-- **Purpose**: Validates the structure and parameters of a query.
-- **When to use**: Include this feature to prevent invalid or malformed queries from reaching the execution stage.
+- **Purpose**: Ensures query structure and parameters follow schema rules, detecting and preventing invalid queries.
+- **When to use**: Include this feature to prevent invalid or malformed queries being executed.
 - **Configuration**:
     ```csharp
     public sealed class ApiSchema : Schema
@@ -67,11 +68,11 @@ validating, and executing FunQL queries, simplifying the entire execution proces
 
 ## LINQ
 
-The LINQ feature translates FunQL queries into LINQ expressions, making it compatible with LINQ-based frameworks like
-Entity Framework Core.
+The LINQ feature translates FunQL queries into LINQ expressions, enabling seamless integration with LINQ-based 
+frameworks such as Entity Framework Core.
 
-- **Purpose**: Translates FunQL operations like filtering, sorting, or pagination into LINQ expressions.
-- **When to use**: Include this feature when working with LINQ-compatible frameworks or in-memory collections.
+- **Purpose**: Translates FunQL operations like filtering, sorting, and pagination to LINQ expressions.
+- **When to use**: Use this feature when querying LINQ-compatible frameworks or in-memory collections.
 - **Configuration**:
     ```csharp
     public sealed class ApiSchema : Schema
@@ -87,10 +88,12 @@ Entity Framework Core.
 
 ## Visit
 
-The visit feature allows traversal and manipulation of the FunQL AST.
+The visit feature provides functionality to traverse and inspect the FunQL AST. While this feature is primarily used by 
+the [validate feature](#validate), it can also be extended for custom operations.
 
-- **Purpose**: Visits each FunQL node for additional processing, like validating nodes or translating them to LINQ.
-- **When to use**: Add this feature for processing FunQL nodes.
+- **Purpose**: Facilitates AST traversal for operations like validation or custom modifications.
+- **When to use**: Usually included as a dependency for validation but can also be used explicitly for custom AST 
+  processing.
 - **Configuration**:
     ```csharp
     public sealed class ApiSchema : Schema
@@ -106,7 +109,7 @@ The visit feature allows traversal and manipulation of the FunQL AST.
 
 ## Print
 
-The print feature converts a FunQL AST back into a human-readable query string.
+The print feature translates the FunQL AST back into a FunQL query string.
 
 - **Purpose**: Translates a FunQL AST to a FunQL query string, ready to query a FunQL API.
 - **When to use**: Use this feature to serialize FunQL queries.
