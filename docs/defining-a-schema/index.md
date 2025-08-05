@@ -55,7 +55,7 @@ public sealed class ApiSchema : Schema
 
 By adding only the features you need, you ensure that your schema remains lightweight and optimized for your use case.
 
-[Learn more about features →](features.md)
+[Learn more about features →](features/index.md)
 
 ## Adding requests
 

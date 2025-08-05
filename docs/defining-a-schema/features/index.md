@@ -1,14 +1,14 @@
 ﻿# Features
 
-FunQL provides a modular architecture where each capability (like parse, validate, execute) is its own configurable 
-feature. By adding only the features you need, you ensure that your schema remains lightweight and optimized for your 
-use case. 
+FunQL provides a modular architecture where each capability (like parse, validate, execute) is its own configurable
+feature. By adding only the features you need, you ensure that your schema remains lightweight and optimized for your
+use case.
 
 This section gives an overview of each feature, its purpose and how to add it to your schema.
 
 ## Parse
 
-The parse feature enables the schema to parse raw FunQL queries into query nodes. Parsing is the first step in 
+The parse feature enables the schema to parse raw FunQL queries into query nodes. Parsing is the first step in
 processing a FunQL query, converting it into an Abstract Syntax Tree (AST) for further processing.
 
 - **Purpose**: Converts raw FunQL queries into an internal data structure for further processing.
@@ -23,6 +23,8 @@ processing a FunQL query, converting it into an Abstract Syntax Tree (AST) for f
         }
     }
     ```
+
+[Learn more about the parse feature →](parse.md)
 
 ## Validate
 
@@ -40,10 +42,12 @@ The validate feature allows for validating that FunQL queries comply with the ru
         }
     }
     ```
+  
+[Learn more about the validate feature →](validate.md)
 
 ## Execute
 
-The execute feature allows you to use the [execution pipeline](../executing-queries/pipeline.md) for parsing, 
+The execute feature allows you to use the [execution pipeline](../executing-queries/pipeline.md) for parsing,
 validating, and executing FunQL queries, simplifying the entire execution process to a single method call.
 
 - **Purpose**: Executes each step in the execution process.
@@ -59,9 +63,11 @@ validating, and executing FunQL queries, simplifying the entire execution proces
     }
     ```
 
+[Learn more about the execute feature →](execute.md)
+
 ## LINQ
 
-The LINQ feature translates FunQL queries into LINQ expressions, making it compatible with LINQ-based frameworks like 
+The LINQ feature translates FunQL queries into LINQ expressions, making it compatible with LINQ-based frameworks like
 Entity Framework Core.
 
 - **Purpose**: Translates FunQL operations like filtering, sorting, or pagination into LINQ expressions.
@@ -76,6 +82,8 @@ Entity Framework Core.
         }
     }
     ```
+
+[Learn more about the LINQ feature →](linq.md)
 
 ## Visit
 
@@ -94,6 +102,8 @@ The visit feature allows traversal and manipulation of the FunQL AST.
     }
     ```
 
+[Learn more about the visit feature →](visit.md)
+
 ## Print
 
 The print feature converts a FunQL AST back into a human-readable query string.
@@ -110,12 +120,14 @@ The print feature converts a FunQL AST back into a human-readable query string.
         }
     }
     ```
-  
+
+[Learn more about the print feature →](print.md)
+
 ---
 
 ## Adding core features
 
-To quickly enable most of the commonly-used features, FunQL provides a method to add all core features at once:
+To quickly enable most of the commonly used features, FunQL provides a method to add all core features at once:
 
 ```csharp
 public sealed class ApiSchema : Schema
