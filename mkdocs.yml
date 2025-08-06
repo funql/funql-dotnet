@@ -117,8 +117,10 @@ nav:
       - Visit: defining-a-schema/features/visit.md
       - Print: defining-a-schema/features/print.md
     - Requests: defining-a-schema/requests.md
-    - Parameters: defining-a-schema/parameters.md
-    - Fields: defining-a-schema/fields.md
+    - Parameters: 
+      - defining-a-schema/parameters/index.md
+    - Fields:
+      - defining-a-schema/fields/index.md
   - Executing queries:
     - executing-queries/index.md
     - Execution pipeline: executing-queries/pipeline.md
