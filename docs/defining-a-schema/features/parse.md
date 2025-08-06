@@ -1,14 +1,14 @@
 ﻿# Parse
 
-The parse feature is crucial for transforming raw FunQL queries into structured query nodes by creating an Abstract 
+The parse feature is crucial for transforming raw FunQL queries into structured query nodes by generating an Abstract 
 Syntax Tree (AST). Parsing is the first step in processing a FunQL query before it can be validated and executed. 
 
-This page explains how to add the parse feature to your schema and demonstrates how it works, including examples for
-both the QL and REST approaches to parsing.
+This page explains how to configure the parse feature and demonstrates how to parse queries.
 
-## Adding feature
+## Adding the feature
 
-The `AddParseFeature()` method registers all the necessary services used to parse FunQL requests within your schema.
+The `AddParseFeature()` method registers all services required for parsing FunQL requests. Use this to set up the parse 
+feature in your schema.
 
 ### Basic configuration
 
@@ -29,8 +29,8 @@ requests.
 
 ### Advanced configuration
 
-You can optionally pass an action to configure the feature with the `AddParseFeature(config => { })` overload. For 
-example:
+For scenarios where additional customizations are needed, you can pass an action using the 
+`AddParseFeature(config => { })` overload:
 
 ```csharp
 public sealed class ApiSchema : Schema
@@ -39,7 +39,7 @@ public sealed class ApiSchema : Schema
     {
         schema.AddParseFeature(config =>
         {
-            // Customize your parse feature here
+            // Customize the parse feature here
         });
     }
 }
@@ -66,7 +66,7 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
 
     <div class="result" markdown>
 
-    **Parsing request**:
+    **Parsing code:**
 
     ```csharp
     // Get query parameters
@@ -81,6 +81,25 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
         requestName: "listSets", 
         filter: filter, 
         sort: sort
+    );
+    ```
+
+    **Output (generated AST in C#):**
+
+    ```csharp
+    var request = new Request(
+        Name: "listSets",
+        Parameters: [
+            new Filter(
+                new GreaterThanOrEqual(
+                    new FieldPath([new NamedField("price")]),
+                    new Constant(500)
+                )
+            ),
+            new Sort([
+                new Descending(new FieldPath([new NamedField("price")]))
+            ])
+        ]
     );
     ```
 
@@ -105,7 +124,7 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
 
     <div class="result" markdown>
 
-    **Parsing request**:
+    **Parsing code**:
 
     ```csharp
     // Get raw FunQL query
@@ -125,11 +144,36 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
     var request = schema.ParseRequest(rawRequest);
     ```
 
+    **Output (generated AST in C#):**
+
+    ```csharp
+    var request = new Request(
+        Name: "listSets",
+        Parameters: [
+            new Filter(
+                new GreaterThanOrEqual(
+                    new FieldPath([new NamedField("price")]),
+                    new Constant(500)
+                )
+            ),
+            new Sort([
+                new Descending(new FieldPath([new NamedField("price")]))
+            ])
+        ]
+    );
+    ```
+
     The `ParseRequest()` method is designed for use cases where FunQL acts as a fully integrated query language. There's 
     no need to pass the `requestName`, as this is automatically resolved when parsing the request. The result will be 
     the parsed `Request`, which is the full AST, ready for further processing like validation and execution.
     
     </div>
+
+!!! tip
+
+    Use the [execute feature](execute.md) to simplify query processing. It automates essential steps like parsing, 
+    validation, LINQ translation, and data fetching, allowing you to handle complex FunQL queries with just a single 
+    method call.
 
 ## What's next
 
