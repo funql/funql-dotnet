@@ -204,7 +204,7 @@ public sealed class ApiSchema : Schema
 
 The `Schema` is now fully configured and ready to handle `listSets` requests.
 
-[Learn more about fields →](fields.md)
+[Learn more about fields →](fields/index.md)
 
 ---
 
