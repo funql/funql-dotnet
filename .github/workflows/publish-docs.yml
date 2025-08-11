@@ -24,7 +24,7 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         # Fetch all history for all tags and branches
         # mkdocs-git-revision-date-localized-plugin needs access to the last commit that touched a specific file
         with:
