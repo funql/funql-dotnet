@@ -48,7 +48,7 @@ The validate feature allows for validating that FunQL queries comply with the ru
 
 ## Execute
 
-The execute feature allows you to use the [execution pipeline](../executing-queries/pipeline.md) for parsing,
+The execute feature allows you to use the [execution pipeline](../../executing-queries/pipeline.md) for parsing,
 validating, and executing FunQL queries, simplifying the entire execution process to a single method call.
 
 - **Purpose**: Executes each step in the execution process.
