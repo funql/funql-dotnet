@@ -17,5 +17,5 @@ developer experience.
 
 Let's get started with FunQL .NET!
 
-[Get started](learn/getting-started.md){ .md-button .md-button--primary }
-[Learn more](design-philosophy.md){ .md-button }
+[Get started](getting-started.md){ .md-button .md-button--primary }
+[Learn more](additional-resources/design-philosophy.md){ .md-button }

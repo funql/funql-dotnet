@@ -1,0 +1,214 @@
+﻿# Entity Framework Core
+
+[Entity Framework Core (EF Core)](https://learn.microsoft.com/en-us/ef/core/) is a powerful Object-Relational Mapper 
+(ORM) for .NET that allows developers to interact with databases using .NET objects and LINQ. FunQL seamlessly 
+integrates with EF Core by translating FunQL queries into LINQ expressions, which EF Core further translates to database 
+queries.
+
+This section will explain more about integrating FunQL with EF Core and using EF Core-specific optimizations (e.g., 
+`CountAsync` for asynchronous count operations).
+
+You can also refer to the [WebApi sample](https://github.com/funql/funql-dotnet/tree/main/samples/WebApi) for a
+practical example of the EF Core integration.
+
+## Getting started
+
+FunQL offers seamless integration with EF Core by working directly with `IQueryable` objects. Create a `DbContext` and 
+then directly execute FunQL queries using `DbSet<T>`, which implements `IQueryable`.
+
+### 1. Create DbContext
+
+To begin, let's define a simple `DbContext` that represents our database. In this example, we'll create a context for 
+querying LEGO sets (as configured in [Defining a Schema](../defining-a-schema/index.md)):
+
+```csharp
+public sealed record Set(string Name, double Price, DateTime LaunchTime);
+
+public sealed class ApiSchema : Schema
+{
+    // Code omitted for brevity, see 'Defining a Schema'
+}
+
+public class ApiContext : DbContext 
+{
+    public DbSet<Set> Sets { get; set; }    
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // Replace with your database configuration
+        options.UseSqlServer("YourConnectionStringHere");
+    }
+}
+```
+
+### 2. Execute FunQL query
+
+With the `DbContext` configured, you can execute FunQL queries directly on a `DbSet<T>`. FunQL translates these queries
+into LINQ expressions, which EF Core then optimizes into database queries.
+
+Here's an example that queries LEGO sets priced at or above 500, sorted by price in descending order:
+
+```csharp
+// Create the configured DbContext
+var context = new ApiContext();
+// Create the configured schema
+var schema = new ApiSchema();
+
+// Execute the listSets() FunQL request on ApiContext.Sets
+var result = await context
+    .Sets
+    .ExecuteRequestForParameters(
+        schema, 
+        requestName: "listSets", 
+        filter: "gte(price, 500)", 
+        sort: "desc(price)"
+    );
+```
+
+!!! note
+
+    In a real-world application, it's recommended to configure and manage your `DbContext` using dependency injection 
+    and not create an instance directly.
+
+That's it! FunQL seamlessly filters, sorts, and queries your database directly through the `DbSet<Set>`, leveraging EF 
+Core's powerful capabilities.
+
+## Optimizing async support
+
+While FunQL integrates with EF Core out of the box, operations like counting can be further optimized. Using EF Core's 
+specialized async methods, such as `CountAsync()` for counting and `ToListAsync()` for data retrieval, improves
+performance.
+
+!!! note
+    
+    FunQL executes LINQ queries asynchronously out of the box if `IQueryable` implements `IAsyncEnumerable`. The 
+    implementation is equivalent to calling EF Core's `ToListAsync()` method. However, there's no generic interface for 
+    async counting, making it necessary to explicitly use EF Core's `CountAsync()` via a custom execution handler when 
+    using FunQL's `count()` parameter.
+
+### 1. Create execution handler
+
+Implement a custom `IExecutionHandler` to override the default implementation and directly use EF Core's async methods:
+
+```csharp
+/// <summary>
+/// Execution handler that executes the <see cref="ExecuteLinqExecuteContext.Queryable"/> to get the data for
+/// <see cref="IExecutorState.Request"/>.
+/// <para>
+/// This handler replaces the <see cref="ExecuteLinqExecutionHandler"/> so it can use the async EFCore methods instead:
+/// <list type="bullet">
+/// <item>
+/// <description>
+///   <see cref="EntityFrameworkQueryableExtensions.ToListAsync{T}(IQueryable{T},CancellationToken)"/> to get the data
+/// </description>
+/// </item>
+/// <item>
+/// <description>
+///   <see cref="EntityFrameworkQueryableExtensions.CountAsync{T}(IQueryable{T},CancellationToken)"/> to count the items
+/// </description>
+/// </item>
+/// </list>
+/// </para>
+/// </summary>
+/// <remarks>
+/// Requires <see cref="ExecuteLinqExecuteContext"/> context, just like <see cref="ExecuteLinqExecutionHandler"/>.
+///
+/// <para>
+/// Note that <see cref="ExecuteLinqExecutionHandler"/> already handles <see cref="IAsyncEnumerable{T}"/> the same or
+/// similar to how <see cref="EntityFrameworkQueryableExtensions.ToListAsync{T}(IQueryable{T},CancellationToken)"/>
+/// handles it. Only the <see cref="EntityFrameworkQueryableExtensions.CountAsync{T}(IQueryable{T},CancellationToken)"/>
+/// is different as there's no abstract way to count asynchronously; this is a specific implementation in EFCore.
+/// </para>
+/// </remarks>
+public class EntityFrameworkCoreExecuteLinqExecutionHandler : IExecutionHandler
+{
+    /// <summary>Default name of this handler.</summary>
+    public const string DefaultName = "WebApi.EntityFrameworkCoreExecuteLinqExecutionHandler";
+    
+    // Handler should be called late in the pipeline as LINQ does the data fetching, which is pretty much at the end
+    /// <summary>Default order of this handler.</summary>
+    /// <remarks>
+    /// Should be called before <see cref="ExecuteLinqExecutionHandler"/> so this handler can take over the execution.
+    /// </remarks>
+    public const int DefaultOrder = ExecuteLinqExecutionHandler.DefaultOrder - 100;
+
+    /// <inheritdoc/>
+    public async Task Execute(IExecutorState state, ExecutorDelegate next, CancellationToken cancellationToken)
+    {
+        var context = state.FindContext<ExecuteLinqExecuteContext>();
+        // Early return if no ExecuteLinqExecuteContext set
+        if (context == null)
+        {
+            await next(state, cancellationToken);
+            return;
+        }
+        
+        var queryable = context.Queryable;
+        var countQueryable = context.CountQueryable;
+
+        // Query the data
+        state.Data = await EntityFrameworkQueryableExtensions.ToListAsync((dynamic)queryable, cancellationToken);
+
+        // Count the data if necessary
+        if (countQueryable != null)
+        {
+            int totalCount = await EntityFrameworkQueryableExtensions.CountAsync(
+                (dynamic)countQueryable,
+                cancellationToken
+            );
+            state.SetTotalCount(totalCount);
+        }
+        
+        // This is the last step that executes the request, so don't call next
+    }
+}
+```
+
+### 2. Add extension method
+
+To simplify integration, create an extension method to include the EF Core optimizations:
+
+```csharp
+/// <summary>
+/// Extensions related to <see cref="IExecuteConfigBuilder"/> and <see cref="Microsoft.EntityFrameworkCore"/>.
+/// </summary>
+public static class ExecuteConfigBuilderEntityFrameworkCoreExtensions
+{
+    /// <summary>
+    /// Adds the <see cref="EntityFrameworkCoreExecuteLinqExecutionHandler"/> to given <paramref name="builder"/> if not
+    /// yet added.
+    /// </summary>
+    /// <param name="builder">Builder to configure.</param>
+    /// <returns>The builder to continue building.</returns>
+    public static IExecuteConfigBuilder WithEntityFrameworkCoreExecuteLinqExecutionHandler(
+        this IExecuteConfigBuilder builder
+    )
+    {
+        // Lazy provider so handler is only created when executing
+        IExecutionHandler? handler = null;
+        return builder.WithExecutionHandler(
+            EntityFrameworkCoreExecuteLinqExecutionHandler.DefaultName,
+            _ => handler ??= new EntityFrameworkCoreExecuteLinqExecutionHandler(),
+            EntityFrameworkCoreExecuteLinqExecutionHandler.DefaultOrder
+        );
+    }
+}
+```
+
+### 3. Configure Schema
+
+Finally, update your schema to include the custom EF Core execution handler:
+
+```csharp
+public sealed class ApiSchema : Schema { 
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema) {                 
+        schema.AddExecuteFeature(it =>
+        {
+            // Add the EntityFrameworkCoreExecuteLinqExecutionHandler so specific EF Core methods are used 
+            it.WithEntityFrameworkCoreExecuteLinqExecutionHandler();
+        });
+    }
+}
+```
+
+That's it, FunQL will now directly use EF Core's async methods when executing queries.
