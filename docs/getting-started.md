@@ -8,7 +8,7 @@ This guide will help you get started with FunQL .NET quickly.
 
 Create a new ASP.NET Core Web API project using the .NET CLI.
 
-```shell title="Bash"
+```shell
 dotnet new webapi -n Demo
 ```
 
@@ -34,13 +34,15 @@ dotnet add package FunQL
 
 For this example we'll create an API for querying LEGO sets, so create a `Set` data model.
 
-```csharp title="Set.cs"
+```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);
 ```
 
 ## Create the schema
 
-TODO: Explain about schema
+A schema defines the structure and behavior of your API, including the available requests, their parameters, and the 
+data models they operate on. Create a schema and add the `Core` and `LINQ` features to enable query parsing, validation, 
+and execution. Then add the `listSets` request with support for filtering and sorting, ready to query `Set` data.
 
 ```csharp
 public sealed class DemoSchema : Schema
@@ -83,6 +85,9 @@ public sealed class DemoSchema : Schema
 
 ## Add FunQL services
 
+In `Program.cs`, add the `DemoSchema` as a singleton to the application services, ready to be injected in request 
+handlers.
+
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,6 +95,9 @@ builder.Services.AddSingleton<DemoSchema>();
 ```
 
 ## Create a REST endpoint with FunQL support
+
+With the `DemoSchema` fully configured, we can use it to create a REST endpoint to filter and sort LEGO sets. Update 
+`Program.cs` to add the `/sets` endpoint to filter and sort a list of LEGO sets.  
 
 ```csharp
 app.MapGet("/sets", async (string filter, string sort, DemoSchema schema) =>
