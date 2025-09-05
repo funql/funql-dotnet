@@ -8,11 +8,7 @@ This page explains how to configure the parse feature and demonstrates how to pa
 ## Adding the feature
 
 The `AddParseFeature()` method registers all services required for parsing FunQL requests. Use this to set up the parse 
-feature in your schema.
-
-### Basic configuration
-
-To enable the parse feature:
+feature in your schema:
 
 ```csharp
 public sealed class ApiSchema : Schema
@@ -24,28 +20,7 @@ public sealed class ApiSchema : Schema
 }
 ```
 
-This method sets up the parse feature with default configurations, making your schema capable of parsing raw FunQL 
-requests.
-
-### Advanced configuration
-
-For scenarios where additional customizations are needed, you can pass an action using the 
-`AddParseFeature(config => { })` overload:
-
-```csharp
-public sealed class ApiSchema : Schema
-{
-    protected override void OnInitializeSchema(ISchemaConfigBuilder schema)
-    {
-        schema.AddParseFeature(config =>
-        {
-            // Customize the parse feature here
-        });
-    }
-}
-```
-
-Use this approach when you need to adjust or extend the behavior of the parsing services.
+This sets up the parse feature with default configurations, making your schema capable of parsing raw FunQL requests.
 
 ## Parsing requests
 
@@ -82,25 +57,22 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
         filter: filter, 
         sort: sort
     );
-    ```
 
-    **Output (generated AST in C#):**
-
-    ```csharp
-    var request = new Request(
-        Name: "listSets",
-        Parameters: [
-            new Filter(
-                new GreaterThanOrEqual(
-                    new FieldPath([new NamedField("price")]),
-                    new Constant(500)
-                )
-            ),
-            new Sort([
-                new Descending(new FieldPath([new NamedField("price")]))
-            ])
-        ]
-    );
+    // Output (parsed AST):
+    // new Request(
+    //     Name: "listSets",
+    //     Parameters: [
+    //         new Filter(
+    //             new GreaterThanOrEqual(
+    //                 new FieldPath([new NamedField("price")]),
+    //                 new Constant(500)
+    //             )
+    //         ),
+    //         new Sort([
+    //             new Descending(new FieldPath([new NamedField("price")]))
+    //         ])
+    //     ]
+    // );
     ```
 
     The `ParseRequestForParameters()` method is ideal for REST APIs. It will parse the `filter` and `sort` parameters 
@@ -142,25 +114,22 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
 
     // Parse the request
     var request = schema.ParseRequest(rawRequest);
-    ```
 
-    **Output (generated AST in C#):**
-
-    ```csharp
-    var request = new Request(
-        Name: "listSets",
-        Parameters: [
-            new Filter(
-                new GreaterThanOrEqual(
-                    new FieldPath([new NamedField("price")]),
-                    new Constant(500)
-                )
-            ),
-            new Sort([
-                new Descending(new FieldPath([new NamedField("price")]))
-            ])
-        ]
-    );
+    // Output (parsed AST):
+    // new Request(
+    //     Name: "listSets",
+    //     Parameters: [
+    //         new Filter(
+    //             new GreaterThanOrEqual(
+    //                 new FieldPath([new NamedField("price")]),
+    //                 new Constant(500)
+    //             )
+    //         ),
+    //         new Sort([
+    //             new Descending(new FieldPath([new NamedField("price")]))
+    //         ])
+    //     ]
+    // );
     ```
 
     The `ParseRequest()` method is designed for use cases where FunQL acts as a fully integrated query language. There's 
@@ -174,6 +143,34 @@ Once the parse feature is added, the schema exposes two methods to parse FunQL r
     Use the [execute feature](execute.md) to simplify query processing. It automates essential steps like parsing, 
     validation, LINQ translation, and data fetching, allowing you to handle complex FunQL queries with just a single 
     method call.
+
+## Advanced configuration
+
+You can customize the parse feature by passing an action to the `AddParseFeature()` method. For example, replace the 
+default constant parser with your own:
+
+```csharp
+public sealed class ApiSchema : Schema
+{
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema)
+    {
+        schema.AddParseFeature(config =>
+        {
+            // Customize the parse feature here
+            config.WithConstantParserProvider(_ => new MyCustomConstantParser());
+        });
+    }
+}
+```
+
+Use this approach when you need to adjust or extend the behavior of the parsing services. 
+
+!!! tip
+
+    Using Newtonsoft.Json in your application? No problem! Simply replace the default JSON parser with your own 
+    Newtonsoft.Json parser.
+
+    [Learn how to integrate FunQL with Newtonsoft.Json →](../../integrations/newtonsoftjson.md).
 
 ## What's next
 
