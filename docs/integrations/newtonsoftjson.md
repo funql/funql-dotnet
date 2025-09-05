@@ -1,22 +1,22 @@
 ﻿# Newtonsoft.Json
 
 FunQL uses [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview) 
-by default for JSON serialization. However, if your project relies on [Newtonsoft.Json](https://www.newtonsoft.com/json) 
-(also known as JSON.NET), FunQL provides full support for customizing the serialization and deserialization process 
-using this library.
+by default for JSON serialization. However, if your project requires [Newtonsoft.Json](https://www.newtonsoft.com/json) 
+(JSON.NET), FunQL can seamlessly integrate it for both serialization and deserialization.
 
 This section explains how to integrate Newtonsoft.Json with FunQL for both parsing (deserializing) and printing 
 (serializing) constants.
 
 ## Configuring deserialization
 
-To parse FunQL constants like `true`, `"name"` and `123` using Newtonsoft.Json, we will need to override the default 
-`IConstantParser`. First, we create a parser that uses Newtonsoft.Json to parse the constants, and then we configure our 
+To parse FunQL constants (e.g., `true`, `"name"`, `123`, or objects/arrays) using Newtonsoft.Json, we will need to 
+override the default `IConstantParser`. First, we create a parser that uses Newtonsoft.Json, and then we configure our 
 schema to use it.
 
 ### 1. Create the parser
 
-Implement a custom `IConstantParser` that uses `JsonConvert` to deserialize JSON strings into FunQL constants.
+Implement a custom `IConstantParser` that uses `JsonConvert.DeserializeObject()` to deserialize JSON strings into FunQL 
+constants.
 
 ```csharp
 /// <summary>
@@ -125,8 +125,8 @@ First, we implement this class to use Newtonsoft.Json, and then we configure the
 
 ### 1. Create the print visitor
 
-The `NewtonsoftJsonConstantPrintVisitor` is used to serialize FunQL constants into JSON strings using 
-`JsonConvert.SerializeObject`.
+The `NewtonsoftJsonConstantPrintVisitor` serializes FunQL constants into JSON strings using 
+`JsonConvert.SerializeObject()`.
 
 ````csharp
 /// <summary>Implementation of <see cref="IConstantPrintVisitor{TState}"/> using <see cref="JsonConvert"/>.</summary>
