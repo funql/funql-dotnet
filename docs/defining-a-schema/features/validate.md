@@ -21,7 +21,7 @@ public sealed class ApiSchema : Schema
 ```
 
 This sets up the validate feature with default configurations and the core validation rules. See [Advanced
-configuration](#advanced-configuration) on how to customize the validate feature.
+configuration](#advanced-configuration) on how to customize the feature.
 
 ## Validating requests
 
@@ -32,8 +32,7 @@ Once the validate feature is added, you can validate a FunQL `Request` using:
 
 ```csharp
 var schema = new ApiSchema();
-// Assuming we already have a parsed Request (e.g., from parse feature)
-var request = ...
+var request = schema.ParseRequest("listSets()");
 
 try
 {
@@ -84,13 +83,17 @@ public sealed class ApiSchema : Schema
 }
 ```
 
-Use this to customize the feature to your needs.
+Use this to tailor the feature to your needs.
 
 ### Custom validation rules
 
-You can extend the validation logic by adding your own rules. To get started, inherit from `AbstractValidationRule<T>` 
-for simple validators, use `CompositeValidationRule` to group multiple rules, or implement `IValidationRule` for full 
-control. The following example shows how to validate that `Skip` nodes have an integer constant:
+You can extend the validation logic by adding your own rules. To get started:
+
+- Inherit from `AbstractValidationRule<T>` for simple validators.
+- Use `CompositeValidationRule` to group multiple rules.
+- Implement `IValidationRule` for full control.
+
+The following example shows how to validate that `Skip` nodes have an integer constant:
 
 ```csharp
 public sealed class SkipHasIntConstant : AbstractValidationRule<Skip>
@@ -109,12 +112,14 @@ public sealed class SkipHasIntConstant : AbstractValidationRule<Skip>
 }
 ```
 
-Then register it by calling `#!csharp config.WithValidationRule(new SkipHasIntConstant())` in the config action.
+Register it by calling `#!csharp config.WithValidationRule(new SkipHasIntConstant())` inside the configuration action.
 
 **Complex rules:**
 
-For complex rules that, for example, require context about their parent node, use `CompositeValidationRule`. As an 
-example, the following rule validates that there are no `FieldFunction` nodes used when inside a `Sort` node:
+For more complex scenarios (e.g., rules that depend on parent nodes), combine rules via `CompositeValidationRule` and 
+use a shared context to communicate between them. 
+
+As an example, the following rule validates that there are no `FieldFunction` nodes used when inside a `Sort` node:
 
 ```csharp
 public sealed class SortHasNoFieldFunctions() : CompositeValidationRule(
@@ -167,4 +172,4 @@ public sealed class SortHasNoFieldFunctions() : CompositeValidationRule(
 
 With the `Request` fully validated, it's time to fetch the data:
 
-- [Learn more about the execute feature →](validate.md)
+- [Learn more about the execute feature →](execute.md)
