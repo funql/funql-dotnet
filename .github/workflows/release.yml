@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Setup .NET (global.json)
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
