@@ -71,8 +71,8 @@ handlers:
 
 ### Custom execution handlers
 
-You can also add your own execution handlers to the pipeline. As an example, we will add a handler that measures the 
-time it takes to execute the request. First, create a class that implements `IExecutionHandler`:
+You can also add your own execution handlers to the pipeline. For example, a handler that measures the time it takes to 
+execute the request:
 
 ```csharp 
 public sealed class TimingExecutionHandler : IExecutionHandler 
@@ -119,14 +119,14 @@ Now whenever a request is executed, the `TimingExecutionHandler` will log how lo
 
 **Dynamic context:**
 
-For handlers that require dynamic context, you can use the `IExecutorState` to enter an `IExecuteContext`. This allows 
-you to store data that is available throughout the pipeline for other handlers to use.
+For handlers that require dynamic context or need to share data with other handlers, use `IExecutorState` to enter an 
+`IExecuteContext`. This stores data that handlers later in the pipeline can then use.
 
-As an example, we update the `TimingExecutionHandler` to enter a `TimingContext` with the created `Stopwatch` for a 
+As an example, we update the `TimingExecutionHandler` to enter a `TimingContext` with a shared `Stopwatch` for a 
 different handler to use:
 
 ```csharp 
-public sealed record TimingContext(Stopwatch stopwatch) : IExecuteContext;
+public sealed record TimingContext(Stopwatch Stopwatch) : IExecuteContext;
 
 public sealed class TimingExecutionHandler : IExecutionHandler 
 {     
@@ -155,14 +155,14 @@ public sealed class LogTimingExecutionHandler : IExecutionHandler
         var context = state.FindContext<TimingContext>();
         if (context != null) {
             Console.WriteLine($"Time elapsed is {context.stopwatch.ElapsedMilliseconds} ms");
-        } // else: The context was not found, so never entered that context
+        } // else: Context was not entered
         
         return next(state, cancellationToken);
     }
 }
 ```
 
-The `LogTimingExecutionHandler` will now log the elapsed time only when the `TimingContext` is available.
+The `LogTimingExecutionHandler` logs the elapsed time only when a `TimingContext` has been entered.
 
 ## What's next
 
