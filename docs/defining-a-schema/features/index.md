@@ -47,7 +47,7 @@ public sealed class ApiSchema : Schema
 ## Execute
 
 The execute feature simplifies the entire query-processing pipeline by combining parsing, validation, and execution into
-a single method, leveraging FunQL’s [execution pipeline](../../executing-queries/pipeline.md).
+a single method, leveraging FunQL's [execution pipeline](../../executing-queries/pipeline.md).
 
 **Adding the feature:**
 
