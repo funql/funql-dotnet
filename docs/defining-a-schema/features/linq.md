@@ -114,7 +114,7 @@ var limit = new Limit(new Constant(5));
 // Create the configured schema
 var schema = new ApiSchema();
 
-// Apply parameters (order matters!)
+// Apply parameters
 var results = sets.ApplyFilter(schema.SchemaConfig, "listSets", filter) 
     // Setting alreadyOrdered to false as the sets are not ordered yet; When 
     // manually calling `.OrderBy()`, you need to set alreadyOrdered to true, 
@@ -172,5 +172,5 @@ public sealed class ApiSchema : Schema
 
 After adding LINQ, it's time to execute queries on your database:
 
-- [Learn more about requests →](../requests.md)
+- [Learn more about executing queries →](../../executing-queries/index.md)
 - [Learn more about integrating Entity Framework Core →](../../integrations/efcore.md)
