@@ -6,6 +6,24 @@ use case.
 
 This section introduces FunQL's features, explains their role, and shows you how to add them to your schema.
 
+## Adding core features
+
+To quickly enable all core features (Parse, Validate, Execute, Print, and Visit), use:
+
+```csharp
+public sealed class ApiSchema : Schema
+{
+    protected override void OnInitializeSchema(ISchemaConfigBuilder schema)
+    {
+        schema.AddCoreFeatures();
+    }
+}
+```
+
+For a lightweight schema, selectively add only the features you need.
+
+---
+
 ## Parse
 
 The parse feature enables FunQL to transform raw queries into structured query nodes by generating an Abstract Syntax 
@@ -119,21 +137,3 @@ public sealed class ApiSchema : Schema
 ```
 
 [Learn more about the print feature →](print.md)
-
----
-
-## Adding core features
-
-To quickly enable all core features (Parse, Validate, Execute, Print, and Visit), use:
-
-```csharp
-public sealed class ApiSchema : Schema
-{
-    protected override void OnInitializeSchema(ISchemaConfigBuilder schema)
-    {
-        schema.AddCoreFeatures();
-    }
-}
-```
-
-For a lightweight schema, selectively add only the features you need.
