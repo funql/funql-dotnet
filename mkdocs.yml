@@ -110,6 +110,12 @@ nav:
     - defining-a-schema/index.md
     - Features:
       - defining-a-schema/features/index.md
+      - Parse: defining-a-schema/features/parse.md
+      - Validate: defining-a-schema/features/validate.md
+      - Execute: defining-a-schema/features/execute.md
+      - LINQ: defining-a-schema/features/linq.md
+      - Visit: defining-a-schema/features/visit.md
+      - Print: defining-a-schema/features/print.md
     - Requests: defining-a-schema/requests.md
     - Parameters: 
       - defining-a-schema/parameters/index.md
