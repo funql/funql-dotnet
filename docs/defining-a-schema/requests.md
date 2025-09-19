@@ -3,7 +3,7 @@
 In FunQL, requests define the entry points to your data. They represent the operations that users can query, specifying
 what data can be fetched and how it can be filtered or sorted.
 
-This page explains TODO.
+This page explains how to define and configure requests.
 
 ## Key concepts of requests
 
@@ -16,8 +16,7 @@ This page explains TODO.
 
 ## Adding a request
 
-Add a request by calling `schema.Request(string name)` in your `Schema` configuration. Then configure the request by 
-specifying the supported parameters and the return type.
+Add a request by calling `schema.Request(string name)` in your `Schema` configuration.
 
 ```csharp 
 public sealed class ApiSchema : Schema 
@@ -33,7 +32,7 @@ public sealed class ApiSchema : Schema
 With the `listSets` request defined, the schema can now be used to handle `listSets()` requests. However, the request
 does not yet support any parameters or defines the fields to query, so let's configure that next.
 
-## Support parameters
+## Supporting parameters
 
 By default, a request does not support any parameters. You must explicitly enable parameters that are relevant to the
 request. For example, the `listSets` request should support common list operations like filtering, sorting, and 
@@ -85,7 +84,7 @@ default value of `10` if no limit was given.
 
 [Learn more about parameters →](parameters/index.md)
 
-## Define fields
+## Defining fields
 
 With the parameters configured, the request can now be used to query data. However, it does not yet define which fields 
 can be queried, filtered, and sorted. For this, you must specify the return type of the request:
@@ -112,7 +111,7 @@ public sealed class ApiSchema : Schema
 }
 ```
 
-This configures the request to return a list of `Set` objects, with a `price` field that can be filtered and sorted. 
+This configures `listSets` to return a list of `Set` objects, with a `price` field that supports filtering and sorting. 
 With all this configured, the request is now properly configured to handle queries like:
 
 === "REST"
@@ -140,7 +139,7 @@ With all this configured, the request is now properly configured to handle queri
 
 ## What's next
 
-With the request configured, you can now execute queries against it. Or continue to configure the request to support 
+With the request configured, you can now execute queries with it. Or continue to configure the request to support 
 additional parameters and fields.
 
 - [Learn more about executing queries →](../executing-queries/index.md)
