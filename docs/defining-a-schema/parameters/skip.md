@@ -9,7 +9,7 @@ pagination in combination with the [`limit`](limit.md) parameter.
 
 Examples:
 
-- `#!funql skip(0)`
+- `#!funql skip(10)`
 - `#!funql skip(20)`
 
 ## C# representation
