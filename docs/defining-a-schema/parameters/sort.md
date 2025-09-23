@@ -119,7 +119,7 @@ var results = sets.AsQueryable()
     // Equivalent LINQ:
     // sets.OrderByDescending(it => it.Price)
     //     .ThenBy(it => it.Name)
-    .ApplySort("listSets", sort, alreadyOrdered: false)
+    .ApplySort(schema.SchemaConfig, "listSets", sort, alreadyOrdered: false)
     .ToList();
 
 // Print the result
