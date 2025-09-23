@@ -50,7 +50,7 @@ new Filter(
 );
 ```
 
-The `Filter` node contains a single predicate expression defining what to filter the results with.
+The `Filter` node contains a single predicate expression defining how to filter the results.
 
 ## Configuration
 
