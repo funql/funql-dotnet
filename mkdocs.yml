@@ -119,6 +119,12 @@ nav:
     - Requests: defining-a-schema/requests.md
     - Parameters: 
       - defining-a-schema/parameters/index.md
+      - Filter: defining-a-schema/parameters/filter.md
+      - Sort: defining-a-schema/parameters/sort.md
+      - Skip: defining-a-schema/parameters/skip.md
+      - Limit: defining-a-schema/parameters/limit.md
+      - Count: defining-a-schema/parameters/count.md
+      - Input: defining-a-schema/parameters/input.md
     - Fields:
       - defining-a-schema/fields/index.md
   - Executing queries:
