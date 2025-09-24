@@ -56,7 +56,7 @@ public sealed class ApiSchema : Schema
 
 ## Execution
 
-The `input` parameter can be used to e.g., add an item to your data set:
+Use the `input` parameter to supply data to your request handler, for example, to add an item:
 
 ```csharp
 public sealed record Set(string Name, double Price, DateTime LaunchTime);

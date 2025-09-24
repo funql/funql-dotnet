@@ -88,7 +88,7 @@ if (count.Value() == true)
 !!! note
 
     When combined with parameters such as `filter`, the `count` reflects the number of results after filtering. Make 
-    sure to count the total number of results **before** applying `skip` and `limit` parameters, otherwise the counnt 
+    sure to count the total number of results **before** applying `skip` and `limit` parameters, otherwise the count 
     will not reflect the total number of results.
 
     If you use the [execute feature](../features/execute.md), this is handled for you automatically.

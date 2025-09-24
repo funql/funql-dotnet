@@ -63,7 +63,7 @@ public sealed class ApiSchema : Schema
     protected override void OnInitializeSchema(ISchemaConfigBuilder schema) 
     {        
         schema.Request("listSets")
-            .SupportsSort(config => 
+            .SupportsFilter(config => 
             {
                 // Only include sets worth 10 or more by default
                 config.HasDefaultValue(new Filter(
@@ -147,7 +147,7 @@ var filter = new Filter(
 var results = sets.AsQueryable()
     // Equivalent LINQ:
     // sets.Where(it => it.Price >= 500)
-    //     .Where(it => it.Name.ToUpper() == "STAR")
+    //     .Where(it => it.Name.ToUpper().Contains("STAR"))
     .ApplyFilter(schema.SchemaConfig, "listSets", filter)
     .ToList();
 
