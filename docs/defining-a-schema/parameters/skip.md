@@ -83,7 +83,7 @@ var results = sets.AsQueryable()
     .ToList();
 
 // Print the result
-Console.WriteLine(string.Join(", ", results));
+Console.WriteLine(string.Join("\n", results));
 // Output:
 // Set { Name = LEGO Harry Potter Hogwarts Castle, Price = 469.99, LaunchTime = 1-9-2018 00:00:00 }
 ```

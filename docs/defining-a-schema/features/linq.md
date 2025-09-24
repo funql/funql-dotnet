@@ -74,7 +74,7 @@ var results = sets.ApplyRequest(schema, request)
     .ToList();
 
 // Print the result
-Console.WriteLine(string.Join(", ", results));
+Console.WriteLine(string.Join("\n", results));
 // Output:
 // Set { Name = LEGO Star Wars The Razor Crest, Price = 599,99, LaunchTime = 3-10-2022 00:00:00 }
 ```
@@ -125,7 +125,7 @@ var results = sets.ApplyFilter(schema.SchemaConfig, "listSets", filter)
     .ToList();
 
 // Print the result
-Console.WriteLine(string.Join(", ", results));
+Console.WriteLine(string.Join("\n", results));
 // Output:    
 // Set { Name = LEGO Star Wars The Razor Crest, Price = 599,99, LaunchTime = 3-10-2022 00:00:00 }
 ```

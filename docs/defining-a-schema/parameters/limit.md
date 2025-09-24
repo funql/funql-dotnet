@@ -87,7 +87,7 @@ var results = sets.AsQueryable()
     .ToList();
 
 // Print the result
-Console.WriteLine(string.Join(", ", results));
+Console.WriteLine(string.Join("\n", results));
 // Output:
 // Set { Name = LEGO Star Wars Millennium Falcon, Price = 849.99, LaunchTime = 1-10-2017 00:00:00 }
 ```
