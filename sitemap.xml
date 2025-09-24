@@ -61,6 +61,30 @@
          <lastmod>2025-09-24</lastmod>
     </url>
     <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/count/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/filter/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/input/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/limit/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/skip/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://dotnet.funql.io/defining-a-schema/parameters/sort/</loc>
+         <lastmod>2025-09-24</lastmod>
+    </url>
+    <url>
          <loc>https://dotnet.funql.io/examples/</loc>
          <lastmod>2025-09-24</lastmod>
     </url>
