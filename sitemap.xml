@@ -2,122 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dotnet.funql.io/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/getting-started/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/additional-resources/design-philosophy/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/additional-resources/licensing/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/requests/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/execute/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/linq/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/parse/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/print/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/validate/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/features/visit/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/fields/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/count/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/filter/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/input/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/limit/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/skip/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/defining-a-schema/parameters/sort/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/examples/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/examples/basic/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/examples/webapi/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/executing-queries/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/executing-queries/pipeline/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/integrations/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/integrations/efcore/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/integrations/newtonsoftjson/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
     <url>
          <loc>https://dotnet.funql.io/integrations/nodatime/</loc>
-         <lastmod>2025-09-24</lastmod>
+         <lastmod>2025-10-13</lastmod>
     </url>
 </urlset>
